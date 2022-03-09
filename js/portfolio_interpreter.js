@@ -24,6 +24,24 @@ const entries = {
                     "images/portfolio/sortalg/done.png"
                 ],
             },
+            {
+                "id":"droideka",
+                "title":"Droid Model Armature",
+                "description":"I created the skeleton for a Droideka from Star Wars. This model was commissioned for use in a video game mod. Used inverse kinematics and bezier curves to create procedural, 360 degree animations.",
+                "carousel":[
+                    "images/portfolio/droideka.gif"
+                ]
+            },
+            {
+                "id":"20q",
+                "title":"20 Questions",
+                "description":"This 20 questions game would guess the animal that the user was thinking of. It uses a binary search algorithm along with a dataset containing lots of animals and their attributes to guess. It can usually figure out the correct animal in <5 tries.",
+                "carousel":[
+                    "images/portfolio/20q/start.png",
+                    "images/portfolio/20q/guessing.png",
+                    "images/portfolio/20q/end.png"
+                ]
+            }
         ]
     },
 };
