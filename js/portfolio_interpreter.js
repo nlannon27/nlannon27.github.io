@@ -15,6 +15,18 @@ const entries = {
                 }
             },
             {
+                "id":"scpbase",
+                "title":"Garry's Mod SCP Entity Base",
+                "description":"An addon for the game Garry's Mod that allows the user to turn into entities based on the fictional SCP universe. Currently has 10,000 subscribers and 450 stars.",
+                "carousel":[
+                    "images/portfolio/scp/gmod-scp173.gif",
+                ],
+                "link":{
+                    "title":"View on Github",
+                    "link":"https://github.com/d3nosaur/GMOD-SCP-Base",
+                }
+            },
+            {
                 "id":"sortingalg",
                 "title":"Sorting Algorithm Visualizer", 
                 "description":"A school project written in Javascript to visualize and compare sorting algorithms. After picking the Tick Rate, Number of Cells, and Sorting Algorithm you are able to see how long it takes to sort with the cells moving and comparing.",
