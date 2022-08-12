@@ -5,7 +5,7 @@ const entries = {
             {
                 "id":"neuralnetwork",
                 "title":"Neural Network Number Guesser", 
-                "description":"AI Written in Java that guesses the number drawn on the screen. Uses the MNIST dataset for training. At best it was able to get ~50% accuracy.",
+                "description":"A Neural Network I developed in Java to guess what number the user is drawing. Written using the Java Spring library for the GUI and the MNIST handwritten dataset for training.",
                 "carousel":[
                     "images/portfolio/neuralnet/neuralnet.gif",
                 ],
@@ -15,9 +15,21 @@ const entries = {
                 }
             },
             {
+                "id":"sandbox",
+                "title":"Cellular Automata - Sandbox", 
+                "description":"Cellular Automata written in C++ using the SFML/OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements.",
+                "carousel":[
+                    "images/portfolio/sandbox.gif",
+                ],
+                "link":{
+                    "title":"View on Github",
+                    "link":"https://github.com/d3nosaur/SFML-Sandbox"
+                }
+            },
+            {
                 "id":"scpbase",
                 "title":"Garry's Mod SCP Entity Base",
-                "description":"An addon for the game Garry's Mod that allows the user to turn into entities based on the fictional SCP universe. Currently has 10,000 subscribers and 450 stars.",
+                "description":"An addon for the game Garry's Mod that allows the user to turn into entities based on the fictional SCP universe. Currently has over 10,000 subscribers and 450 stars.",
                 "carousel":[
                     "images/portfolio/scp/gmod-scp173.gif",
                 ],
