@@ -1,34 +1,3 @@
-/*
-    File Contents:
-
-        1. Variables
-        2. Mixins
-        3. Global Styles
-        4. Lead Styles
-        5. About Styles
-        6. Experience Styles
-        7. Education Styles
-        8. Project Styles
-        9. Skills Styles
-        10. Contact Styles
-        11. Optional Section Styles
-        12. Media Queries
-*/
-/*
-    ------------------------
-    ----- 1. Variables -----
-    ------------------------
-*/
-/*
-    ---------------------
-    ----- 2. Mixins -----
-    ---------------------
-*/
-/*
-    ----------------------------
-    ----- 3. Global Styles -----
-    ----------------------------
-*/
 body {
   background: #272122;
   font-family: 'Lato';
@@ -513,12 +482,13 @@ footer {
 }
 
 .vtimeline-date {
+  display: inline-block;
   width: 260px;
-  text-align: right;
   position: absolute;
+  font-size: 1.3em;
   left: 0;
   top: 10px;
-  font-weight: 300;
+  font-weight: 400;
   color: #e84b43;
 }
 
@@ -1028,7 +998,8 @@ a.button:hover {
 }
 
 .carousel {
-  margin: 2.5%;
+  max-width: 50%;
+  margin: auto;
   border-style: solid;
   border-color: #e84b43;
 }

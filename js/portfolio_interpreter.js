@@ -5,7 +5,7 @@ const entries = {
             {
                 "id":"neuralnetwork",
                 "title":"Neural Network Number Guesser", 
-                "description":"A Neural Network I developed in Java to guess what number the user is drawing. Written using the Java Spring library for the GUI and the MNIST handwritten dataset for training.",
+                "description":"Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.",
                 "carousel":[
                     "images/portfolio/neuralnet/neuralnet.gif",
                 ],
@@ -17,7 +17,7 @@ const entries = {
             {
                 "id":"sandbox",
                 "title":"Cellular Automata - Sandbox", 
-                "description":"Cellular Automata written in C++ using the SFML/OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements.",
+                "description":"Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.",
                 "carousel":[
                     "images/portfolio/sandbox.gif",
                 ],
@@ -27,21 +27,9 @@ const entries = {
                 }
             },
             {
-                "id":"scpbase",
-                "title":"Garry's Mod SCP Entity Base",
-                "description":"An addon for the game Garry's Mod that allows the user to turn into entities based on the fictional SCP universe. Currently has over 10,000 subscribers and 450 stars.",
-                "carousel":[
-                    "images/portfolio/scp/gmod-scp173.gif",
-                ],
-                "link":{
-                    "title":"View on Github",
-                    "link":"https://github.com/d3nosaur/GMOD-SCP-Base",
-                }
-            },
-            {
                 "id":"sortingalg",
                 "title":"Sorting Algorithm Visualizer", 
-                "description":"A school project written in Javascript to visualize and compare sorting algorithms. After picking the Tick Rate, Number of Cells, and Sorting Algorithm you are able to see how long it takes to sort with the cells moving and comparing.",
+                "description":"A school project written in Javascript to visualize and compare sorting algorithms. After picking the Tick Rate, Number of Cells, and Sorting Algorithm you are able to see how long it takes to sort with the cells moving and comparing. The biggest challenge with this system was modifying each algorithm to visually show comparisons instead of just cell movements.",
                 "carousel":[
                     "images/portfolio/sortalg/title.png",
                     "images/portfolio/sortalg/inprogress.png",
@@ -56,16 +44,6 @@ const entries = {
                     "images/portfolio/droideka.gif"
                 ]
             },
-            {
-                "id":"20q",
-                "title":"20 Questions",
-                "description":"This 20 questions game would guess the animal that the user was thinking of. It uses a binary search algorithm along with a dataset containing lots of animals and their attributes to guess. It can usually figure out the correct animal in <5 tries.",
-                "carousel":[
-                    "images/portfolio/20q/start.png",
-                    "images/portfolio/20q/guessing.png",
-                    "images/portfolio/20q/end.png"
-                ]
-            }
         ]
     },
 };
