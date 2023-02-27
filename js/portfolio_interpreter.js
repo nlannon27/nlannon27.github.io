@@ -35,6 +35,14 @@ const entries = {
                 ]
             },
             {
+                "id":"verlet_rope_physics",
+                "title":"Verlet Rope Physics",
+                "description":"An expansion I made for my Verlet Physics Engine. This update makes it possible to chain together objects into ropes. I also optimized the code a bit by using grid collision detection. Every object is stored within a grid cell, and now will only collide with neighboring cells instead of every other object.",
+                "carousel":[
+                    "images/portfolio/verlet_physics/rope_physics.gif"
+                ]
+            },
+            {
                 "id":"sortingalg",
                 "title":"Sorting Algorithm Visualizer", 
                 "description":"A school project written in Javascript to visualize and compare sorting algorithms. After picking the Tick Rate, Number of Cells, and Sorting Algorithm you are able to see how long it takes to sort with the cells moving and comparing. The biggest challenge with this system was modifying each algorithm to visually show comparisons instead of just cell movements.",
