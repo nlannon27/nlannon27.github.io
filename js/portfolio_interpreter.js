@@ -28,8 +28,8 @@ const entries = {
             },
             {
                 "id":"verlet_circle_physics",
-                "title":"Verlet Physics Testing",
-                "description":"A simple testing environment I created to experiment with Verlet Integration. This should be a solid base to build off of in future projects. Created in Java with the Processing UI library.",
+                "title":"Verlet Physics",
+                "description":"A simple testing environment I created to experiment with Verlet Integration. This will be a solid base to build off for use in future projects. Created in Java with the Processing UI library.",
                 "carousel":[
                     "images/portfolio/verlet_physics/circle_physics.gif"
                 ]
