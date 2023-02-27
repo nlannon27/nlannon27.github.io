@@ -47,7 +47,7 @@ const entries = {
             {
                 "id":"droideka",
                 "title":"Droid Model Armature",
-                "description":"I created the skeleton for a Droideka from Star Wars. This model was commissioned for use in a video game mod. Used inverse kinematics and bezier curves to create procedural, 360 degree animations.",
+                "description":"I created the skeleton for a Droideka from Star Wars. This model was commissioned for use in a video game mod. Uses inverse kinematics and bezier curves to create procedural, 360 degree animations. Made with Blender.",
                 "carousel":[
                     "images/portfolio/droideka.gif"
                 ]
