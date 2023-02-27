@@ -971,13 +971,13 @@ a.button:hover {
   display: grid;
   grid-auto-flow: row;
   grid-gap: 1rem;
-  padding: 0.5em 3em 0.5em 3em;
+  padding: 1em 3em 2em 3em;
 }
 
 @media (min-width: 100em) {
   .portfolio-container {
     grid-auto-flow: column;
-    padding: 0.5em 6em 0.5em 6em;
+    padding: 1em 6em 2em 6em;
   }
 }
 
@@ -998,7 +998,7 @@ a.button:hover {
 }
 
 .carousel {
-  max-width: 50%;
+  max-width: 90%;
   margin: auto;
   border-style: solid;
   border-color: #e84b43;
