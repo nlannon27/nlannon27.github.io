@@ -3,6 +3,18 @@ const entries = {
         "default":true,
         "entries": [
             {
+                "id":"sandbox",
+                "title":"Cellular Automata - Sandbox", 
+                "description":"Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.",
+                "carousel":[
+                    "images/portfolio/sandbox.gif",
+                ],
+                "link":{
+                    "title":"View on Github",
+                    "link":"https://github.com/d3nosaur/SFML-Sandbox"
+                }
+            },
+            {
                 "id":"neuralnetwork",
                 "title":"Neural Network Number Guesser", 
                 "description":"Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.",
@@ -15,16 +27,12 @@ const entries = {
                 }
             },
             {
-                "id":"sandbox",
-                "title":"Cellular Automata - Sandbox", 
-                "description":"Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.",
+                "id":"verlet_circle_physics",
+                "title":"Verlet Physics Testing",
+                "description":"A simple testing environment I created to experiment with Verlet Integration. This should be a solid base to build off of in future projects. Created in Java with the Processing UI library.",
                 "carousel":[
-                    "images/portfolio/sandbox.gif",
-                ],
-                "link":{
-                    "title":"View on Github",
-                    "link":"https://github.com/d3nosaur/SFML-Sandbox"
-                }
+                    "images/portfolio/verlet_physics/circle_physics.gif"
+                ]
             },
             {
                 "id":"sortingalg",
