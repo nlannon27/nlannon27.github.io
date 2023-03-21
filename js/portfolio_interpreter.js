@@ -27,6 +27,18 @@ const entries = {
                 }
             },
             {
+                "id":"wordpress-google-sheets",
+                "title":"Wordpress Google Sheets Integration", 
+                "description":"Reusable block created for use in Wordpress Websites. Automatically pulls data from google sheets to keep the website up to date. Includes many customization options and a custom editor panel. Currently working with the web team at the University of Rhode Island to get this integrated into their websites.",
+                "carousel":[
+                    "images/portfolio/wordpress/google-sheets.gif",
+                ],
+                "link":{
+                    "title":"View on Github",
+                    "link":"https://github.com/nlannon27/Wordpress-Google-Sheets-Integration"
+                }
+            },
+            {
                 "id":"verlet_circle_physics",
                 "title":"Verlet Physics",
                 "description":"A simple testing environment I created to experiment with Verlet Integration. This will be a solid base to build off for use in future projects. Created in Java with the Processing UI library.",
