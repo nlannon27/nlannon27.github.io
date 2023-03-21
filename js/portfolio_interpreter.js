@@ -4,7 +4,7 @@ const entries = {
         "entries": [
             {
                 "id":"sandbox",
-                "title":"Cellular Automata - Sandbox", 
+                "title":"Cellular Automata - Sandbox (C++, OpenGL)", 
                 "description":"Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.",
                 "carousel":[
                     "images/portfolio/sandbox.gif",
@@ -16,7 +16,7 @@ const entries = {
             },
             {
                 "id":"neuralnetwork",
-                "title":"Neural Network Number Guesser", 
+                "title":"Neural Network Number Guesser (Java)", 
                 "description":"Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.",
                 "carousel":[
                     "images/portfolio/neuralnet/neuralnet.gif",
@@ -28,8 +28,8 @@ const entries = {
             },
             {
                 "id":"wordpress-google-sheets",
-                "title":"Wordpress Google Sheets Integration", 
-                "description":"Reusable block created for use in Wordpress Websites. Automatically pulls data from google sheets to keep the website up to date. Includes many customization options and a custom editor panel. Currently working with the web team at the University of Rhode Island to get this integrated into their websites.",
+                "title":"Wordpress Google Sheets Integration (PHP, React.JS)", 
+                "description":"Reusable block created for use in Wordpress Websites. Automatically pulls data from google sheets to keep the website up to date. Currently working with the web team at the University of Rhode Island to get this integrated into their websites.",
                 "carousel":[
                     "images/portfolio/wordpress/google-sheets.gif",
                 ],
@@ -40,7 +40,7 @@ const entries = {
             },
             {
                 "id":"verlet_circle_physics",
-                "title":"Verlet Physics",
+                "title":"Verlet Physics (Java | Processing)",
                 "description":"A simple testing environment I created to experiment with Verlet Integration. This will be a solid base to build off for use in future projects. Created in Java with the Processing UI library.",
                 "carousel":[
                     "images/portfolio/verlet_physics/circle_physics.gif"
@@ -52,7 +52,7 @@ const entries = {
             },
             {
                 "id":"verlet_rope_physics",
-                "title":"Verlet Rope and Cloth Physics",
+                "title":"Verlet Rope and Cloth Physics (Java, Processing)",
                 "description":"An expansion I made for my Verlet Physics Engine. This update makes it possible to chain together objects into ropes and cloth. I also optimized the code a bit by using grid collision detection. Every object is stored within a grid cell, and now will only collide with neighboring cells instead of every other object.",
                 "carousel":[
                     "images/portfolio/verlet_physics/cloth_physics.gif",
@@ -65,7 +65,7 @@ const entries = {
             },
             {
                 "id":"sortingalg",
-                "title":"Sorting Algorithm Visualizer", 
+                "title":"Sorting Algorithm Visualizer (Javascript)", 
                 "description":"A school project written in Javascript to visualize and compare sorting algorithms. After picking the Tick Rate, Number of Cells, and Sorting Algorithm you are able to see how long it takes to sort with the cells moving and comparing. The biggest challenge with this system was modifying each algorithm to visually show comparisons instead of just cell movements.",
                 "carousel":[
                     "images/portfolio/sortalg/title.png",
@@ -75,7 +75,7 @@ const entries = {
             },
             {
                 "id":"droideka",
-                "title":"Droid Model Armature",
+                "title":"Droid Model Armature (Blender)",
                 "description":"I created the skeleton for a Droideka from Star Wars. This model was commissioned for use in a video game mod. Uses inverse kinematics and bezier curves to create procedural, 360 degree animations. Made with Blender.",
                 "carousel":[
                     "images/portfolio/droideka.gif"
