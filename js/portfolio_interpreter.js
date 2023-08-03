@@ -15,6 +15,15 @@ const entries = {
                 }
             },
             {
+                "id":"uevehicles",
+                "title":"Vehicle Simulator (Unreal, C++)", 
+                "description":"A randomized vehicle simulator project made in Unreal Engine 4. Includes traffic signals, collision avoidance, and automatic path creation. Easily expandable and modifiable through built in components and interfaces. Created during my internship with ThayerMahan.",
+                "carousel":[
+                    "images/portfolio/ue4-vehicle/ue4_signal_demo.gif",
+                    "images/portfolio/ue4-vehicle/ue4_collision_demo.gif",
+                ],
+            },
+            {
                 "id":"neuralnetwork",
                 "title":"Neural Network Number Guesser (Java)", 
                 "description":"Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.",
