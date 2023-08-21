@@ -4,7 +4,7 @@ const entries = {
         "entries": [
             {
                 "id":"sandbox",
-                "title":"Cellular Automata - Sandbox (C++, OpenGL)", 
+                "title":"Sandbox Cellular Automata", 
                 "description":"Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.",
                 "carousel":[
                     "images/portfolio/sandbox.gif",
@@ -16,7 +16,7 @@ const entries = {
             },
             {
                 "id":"uevehicles",
-                "title":"Vehicle Simulator (Unreal, C++)", 
+                "title":"Vehicle Simulator", 
                 "description":"A randomized vehicle simulator project made in Unreal Engine 4. Includes traffic signals, collision avoidance, and automatic path creation. Easily expandable and modifiable through built in components and interfaces. Created during my internship with ThayerMahan.",
                 "carousel":[
                     "images/portfolio/ue4-vehicle/ue4_signal_demo.gif",
@@ -25,7 +25,7 @@ const entries = {
             },
             {
                 "id":"neuralnetwork",
-                "title":"Neural Network Number Guesser (Java)", 
+                "title":"Neural Network Number Guesser", 
                 "description":"Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.",
                 "carousel":[
                     "images/portfolio/neuralnet/neuralnet.gif",
@@ -37,19 +37,19 @@ const entries = {
             },
             {
                 "id":"wordpress-google-sheets",
-                "title":"Wordpress Google Sheets Integration (PHP, React.JS)", 
-                "description":"Reusable block created for use in Wordpress Websites. Automatically pulls data from google sheets to keep the website up to date. Currently working with the web team at the University of Rhode Island to get this integrated into their websites.",
+                "title":"URI Dynamic Metrics", 
+                "description":"Reusable block created for use in Wordpress Websites. Automatically pulls data from google sheets to keep the website up to date. Built in collaboration with the University of Rhode Island and is now featured within their infrastructure.",
                 "carousel":[
                     "images/portfolio/wordpress/google-sheets.gif",
                 ],
                 "link":{
                     "title":"View on Github",
-                    "link":"https://github.com/nlannon27/Wordpress-Google-Sheets-Integration"
+                    "link":"https://github.com/uriweb/uri-dynamic-metrics"
                 }
             },
             {
                 "id":"verlet_circle_physics",
-                "title":"Verlet Physics (Java | Processing)",
+                "title":"Verlet Physics Engine",
                 "description":"A simple testing environment I created to experiment with Verlet Integration. This will be a solid base to build off for use in future projects. Created in Java with the Processing UI library.",
                 "carousel":[
                     "images/portfolio/verlet_physics/circle_physics.gif"
@@ -61,7 +61,7 @@ const entries = {
             },
             {
                 "id":"verlet_rope_physics",
-                "title":"Verlet Rope and Cloth Physics (Java, Processing)",
+                "title":"Verlet Rope and Cloth Physics",
                 "description":"An expansion I made for my Verlet Physics Engine. This update makes it possible to chain together objects into ropes and cloth. I also optimized the code a bit by using grid collision detection. Every object is stored within a grid cell, and now will only collide with neighboring cells instead of every other object.",
                 "carousel":[
                     "images/portfolio/verlet_physics/cloth_physics.gif",
@@ -74,7 +74,7 @@ const entries = {
             },
             {
                 "id":"sortingalg",
-                "title":"Sorting Algorithm Visualizer (Javascript)", 
+                "title":"Sorting Algorithm Visualizer", 
                 "description":"A school project written in Javascript to visualize and compare sorting algorithms. After picking the Tick Rate, Number of Cells, and Sorting Algorithm you are able to see how long it takes to sort with the cells moving and comparing. The biggest challenge with this system was modifying each algorithm to visually show comparisons instead of just cell movements.",
                 "carousel":[
                     "images/portfolio/sortalg/title.png",
@@ -84,7 +84,7 @@ const entries = {
             },
             {
                 "id":"droideka",
-                "title":"Droid Model Armature (Blender)",
+                "title":"Droid Model Armature",
                 "description":"I created the skeleton for a Droideka from Star Wars. This model was commissioned for use in a video game mod. Uses inverse kinematics and bezier curves to create procedural, 360 degree animations. Made with Blender.",
                 "carousel":[
                     "images/portfolio/droideka.gif"
