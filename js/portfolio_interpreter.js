@@ -24,6 +24,18 @@ const entries = {
                 ],
             },
             {
+                "id":"rovia",
+                "title":"Rovia", 
+                "description":"A python deep neural network that analyzes underwater video footage and extracts highlight clips. I contributed to this project by optimizing both training and inference time.",
+                "carousel":[
+                    "images/portfolio/rovia/oet-hercules-image.jpg",
+                ],
+                "link":{
+                    "title":"View Project Page",
+                    "link":"https://web.uri.edu/oeci/about/oeci-projects-main-page/projects-machine-learning-video/"
+                }
+            },
+            {
                 "id":"neuralnetwork",
                 "title":"Neural Network Number Guesser", 
                 "description":"Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.",
@@ -267,6 +279,8 @@ function createEntryDescription(id, entryTable) {
 
 // Actually create the entries, first loop is for each entry category
 for(var globalId in entries) {
+    console.log(globalId)
+    
     var dark = false;
     var first = true;
 
@@ -300,15 +314,20 @@ for(var globalId in entries) {
         container.setAttribute('class', 'portfolio-container ' + (dark ? 'darkgray' : 'lightgray'));
         entryContainer.appendChild(container);
 
-        var carousel = createEntryCarousel(id, entryTable);
         var description = createEntryDescription(id, entryTable);
 
-        // This makes it swap between carousel on left and right
-        if(dark) {
-            container.appendChild(description);
-            container.appendChild(carousel);
+        if(entryTable["carousel"]) {
+            var carousel = createEntryCarousel(id, entryTable);
+        
+            // This makes it swap between carousel on left and right
+            if(dark) {
+                container.appendChild(description);
+                container.appendChild(carousel);
+            } else {
+                container.appendChild(carousel);
+                container.appendChild(description);
+            }
         } else {
-            container.appendChild(carousel);
             container.appendChild(description);
         }
 
