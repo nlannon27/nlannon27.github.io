@@ -61,8 +61,8 @@ const entries = {
             },
             {
                 "id":"verlet_circle_physics",
-                "title":"Verlet Physics Engine",
-                "description":"A simple testing environment I created to experiment with Verlet Integration. This will be a solid base to build off for use in future projects. Created in Java with the Processing UI library.",
+                "title":"Molecular Physics Engine",
+                "description":"A physics engine I built to experiment with Verlet Integration that simulates physical interaction between particles. Created in Java with the Processing UI library.",
                 "carousel":[
                     "images/portfolio/verlet_physics/circle_physics.gif"
                 ],
@@ -74,7 +74,7 @@ const entries = {
             {
                 "id":"verlet_rope_physics",
                 "title":"Verlet Rope and Cloth Physics",
-                "description":"An expansion I made for my Verlet Physics Engine. This update makes it possible to chain together objects into ropes and cloth. I also optimized the code a bit by using grid collision detection. Every object is stored within a grid cell, and now will only collide with neighboring cells instead of every other object.",
+                "description":"An expansion I made for my Molecular Physics Engine. This update makes it possible to chain together objects with bonds into ropes and cloth. I also optimized the code by using grid collision detection. Every object is stored within a grid cell, and now will only check collisions with neighboring cells instead of every other object.",
                 "carousel":[
                     "images/portfolio/verlet_physics/cloth_physics.gif",
                     "images/portfolio/verlet_physics/rope_physics.gif"
