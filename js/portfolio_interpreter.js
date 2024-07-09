@@ -3,6 +3,34 @@ const entries = {
         "default":true,
         "entries": [
             {
+                "id":"rumi-simulator",
+                "title":"RUMI - Simulator", 
+                "description":"An immersive simulator experience built in Unreal Engine 5 that aims to recreate real life dives taken place aboard expeditions on the E/V Nautilus.",
+                "carousel":[
+                    "images/portfolio/rumi-simulator/1.png",
+                    "images/portfolio/rumi-simulator/2.png",
+                    "images/portfolio/rumi-simulator/1.gif",
+                ],
+                "link":{
+                    "title":"Read More",
+                    "link":"https://nautiluslive.org/tech/realtime-underwater-modeling-and-immersion"
+                }
+            },
+            {
+                "id":"rumi-photogrammetry",
+                "title":"RUMI - Photogrammetry Pipeline", 
+                "description":"Photogrammetry is a method of 3D model creation using images or videos. We applied this technique to underwater footage captured by ROV Hercules to construct accurate geo-positioned digital environments of the seafloor. This process was later refined into a suite of tools to automatically process a dive's data into a digital world.",
+                "carousel":[
+                    "images/portfolio/rumi-photogrammetry/1.png",
+                    "images/portfolio/rumi-photogrammetry/2.png",
+                    "images/portfolio/rumi-photogrammetry/3.png",
+                ],
+                "link":{
+                    "title":"View on GitHub",
+                    "link":"https://github.com/oetproduction/rc_main"
+                }
+            },
+            {
                 "id":"sandbox",
                 "title":"Sandbox Cellular Automata", 
                 "description":"Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.",
@@ -10,7 +38,7 @@ const entries = {
                     "images/portfolio/sandbox.gif",
                 ],
                 "link":{
-                    "title":"View on Github",
+                    "title":"View on GitHub",
                     "link":"https://github.com/d3nosaur/SFML-Sandbox"
                 }
             },
@@ -25,7 +53,7 @@ const entries = {
             },
             {
                 "id":"rovia",
-                "title":"Rovia", 
+                "title":"ROVIA", 
                 "description":"A python deep neural network that analyzes underwater video footage and extracts highlight clips. I contributed to this project by optimizing both training and inference time.",
                 "carousel":[
                     "images/portfolio/rovia/oet-hercules-image.jpg",
@@ -43,7 +71,7 @@ const entries = {
                     "images/portfolio/neuralnet/neuralnet.gif",
                 ],
                 "link":{
-                    "title":"View on Github",
+                    "title":"View on GitHub",
                     "link":"https://github.com/d3nosaur/neural-network-number-guesser"
                 }
             },
@@ -55,7 +83,7 @@ const entries = {
                     "images/portfolio/wordpress/google-sheets.gif",
                 ],
                 "link":{
-                    "title":"View on Github",
+                    "title":"View on GitHub",
                     "link":"https://github.com/uriweb/uri-dynamic-metrics"
                 }
             },
@@ -67,7 +95,7 @@ const entries = {
                     "images/portfolio/verlet_physics/circle_physics.gif"
                 ],
                 "link":{
-                    "title":"View on Github",
+                    "title":"View on GitHub",
                     "link":"https://github.com/nlannon27/Verlet-Integration"
                 }
             },
@@ -80,7 +108,7 @@ const entries = {
                     "images/portfolio/verlet_physics/rope_physics.gif"
                 ],
                 "link":{
-                    "title":"View on Github",
+                    "title":"View on GitHub",
                     "link":"https://github.com/nlannon27/Verlet-Integration"
                 }
             },
