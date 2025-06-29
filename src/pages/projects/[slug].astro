@@ -1,61 +1,141 @@
 ---
-import {
-  getCollection,
-  type CollectionEntry,
-  render,
-} from 'astro:content';
+// src/pages/projects/[slug].astro
+import { getCollection, type CollectionEntry, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Headline from "../../components/common/Headline.astro";
+import MediaCarousel from "../../components/widgets/MediaCarousel.astro";
+import Nav from "../../components/portfolio/Nav.astro";
+import { Icon } from 'astro-icon/components';
 
-import BaseLayout    from '../../layouts/BaseLayout.astro';
-import MediaCarousel from '../../components/widgets/MediaCarousel.astro';
-import { Icon }      from 'astro-icon/components';
-
-/* ──────────────────────────────────────────────────────────────
-   Types
-   ────────────────────────────────────────────────────────────── */
 interface Props {
-  entry: CollectionEntry<'projects'>;
+  entry: CollectionEntry<"projects">;
 }
 
-/* ──────────────────────────────────────────────────────────────
-   Static paths – one page per markdown file in /content/projects
-   ────────────────────────────────────────────────────────────── */
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = await getCollection("projects");
   return projects.map((entry) => ({
-    params: { slug: entry.slug },   // filename without extension
-    props:  { entry },              // pass full entry as prop
+    params: { slug: entry.slug },
+    props: { entry },
   }));
 }
 
-/* `entry` is injected via props thanks to getStaticPaths() */
 const { entry } = Astro.props as Props;
 const { Content } = await render(entry);
-const {
-  title,
-  description,
-  start,
-  end,
-  images = [],
-  videos = [],
-  links = [],
-} = entry.data;
+
+const { title, description, longDescription, start, end, images = [], videos = [] } = entry.data;
+
+const period = `${start.toLocaleDateString("en-US", { month: "short", year: "numeric" })} — ${(
+  end ?? new Date()
+).toLocaleDateString("en-US", { month: "short", year: "numeric" })}`;
 ---
 
-<BaseLayout title={title}>
-  <MediaCarousel images={images} videos={videos} />
+<BaseLayout title={title} showTopButton={false}>
+  <Nav />
+  <Headline title={title} />
 
-  <article class="prose lg:prose-lg max-w-none">
-    <Content />
-  </article>
+  <section class="py-8 sm:py-16 lg:py-20 mx-auto">
+    <article>
+      <header>
+        <div class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center">
+          <p>
+            <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
+            <time datetime={period} class="inline-block">{period}</time>
+          </p>
+        </div>
 
-  <footer class="mt-12 text-sm text-gray-500">
-    <p class="italic">
-      {start.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-      {' — '}
-      {(end ?? new Date()).toLocaleDateString('en-US', {
-        month: 'short',
-        year: 'numeric',
-      })}
-    </p>
-  </footer>
+        <p class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400 text-justify">
+          {description}
+        </p>
+      </header>
+
+      <a href="/#projects" class="hero-cta mx-auto mt-8 w-max">
+        Back to projects <Icon name="tabler:arrow-left" size="1.05em" />
+      </a>
+    </article>
+  </section>
+
+  <style>
+    .hero-cta {
+      display: inline-flex;
+      width: max-content;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.75rem;
+      margin-top: 1rem;
+      font-size: var(--text-lg);
+      border: 2px solid var(--accent-regular);
+      border-radius: 0.5rem;
+      color: var(--accent-regular);
+      transition:
+        background 0.25s,
+        color 0.25s,
+        box-shadow 0.25s;
+    }
+    .hero-cta:hover,
+    .hero-cta:focus {
+      background: var(--accent-regular);
+      color: var(--accent-text-over);
+      box-shadow: 0 0 0 4px var(--accent-overlay);
+    }
+    .wrapper.stack {
+      padding-bottom: 6rem;
+    }
+  </style> 
 </BaseLayout>
+
+<!-- <BaseLayout title={title} showTopButton={false}>
+  <div class="stack gap-8 lg:gap-20">
+    <Nav />
+
+    <main class="wrapper stack gap-20 lg:gap-38 pb-12">
+      <Headline title={title} />
+
+      <div class="space-y-2">
+        <p class="text-sm text-gray-400">{period}</p>
+        {description && <p class="text-lg text-gray-300">{description}</p>}
+      </div>
+
+      {
+        (images.length || videos.length) && (
+          <MediaCarousel images={images} videos={videos} class="w-full" />
+        )
+      }
+
+      <article class="prose lg:prose-lg w-full text-left">
+        <Content />
+      </article>
+
+      <a href="/#projects" class="hero-cta mx-auto mt-8 w-max">
+        Back to projects <Icon icon="arrow-left" size="1.05em" />
+      </a>
+    </main>
+  </div>
+
+  <style>
+    .hero-cta {
+      display: inline-flex;
+      width: max-content;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 1.75rem;
+      margin-top: 1rem;
+      font-size: var(--text-lg);
+      border: 2px solid var(--accent-regular);
+      border-radius: 0.5rem;
+      color: var(--accent-regular);
+      transition:
+        background 0.25s,
+        color 0.25s,
+        box-shadow 0.25s;
+    }
+    .hero-cta:hover,
+    .hero-cta:focus {
+      background: var(--accent-regular);
+      color: var(--accent-text-over);
+      box-shadow: 0 0 0 4px var(--accent-overlay);
+    }
+    .wrapper.stack {
+      padding-bottom: 6rem;
+    }
+  </style>
+</BaseLayout> -->

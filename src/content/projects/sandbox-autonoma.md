@@ -14,6 +14,6 @@ highlight: ./placeholder.webp
 images: []
 links:
   - label: GitHub
-    href: https://github.com/username/sandbox-cellular-automata   # ← replace
+    href: https://github.com/d3nosaur/SFML-Sandbox
     icon: tabler:brand-github
 ---

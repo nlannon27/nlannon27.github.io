@@ -15,8 +15,8 @@ const projects = (await getCollection('projects')).sort(
 
   <section class="projects__list">
     {projects.map(({ slug, data }, i) => {
-      const isOdd  = i % 2 === 1;             // alternate rows on desktop
-      const delay  = 100 + i * 150;           // stagger fade-ups
+      const isOdd  = i % 2 === 1;
+      const delay  = 100;
 
       const ImageBlock = (
         <a href={`/projects/${slug}/`} class="project__image-link">
