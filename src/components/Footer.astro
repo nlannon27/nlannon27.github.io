@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+import type { iconPaths } from './IconPaths';
+import { getEntry } from 'astro:content';
+
+const year = new Date().getFullYear();
+
+// pull social links from Markdown
+const {
+  data: { links: iconLinks },
+} = await getEntry('contact', 'links') as {
+  data: { links: { href: string; icon: keyof typeof iconPaths; label: string }[] };
+};
+---
+
+<footer class="site-footer">
+  <!-- Over-hanging back-to-top button -->
+  <a href="#hero" class="to-top-btn" aria-label="Back to top">
+    <Icon icon="arrow-up" size="1.75em" />
+  </a>
+
+  <div class="wrapper footer-inner">
+    <!-- Social icons -->
+    <div class="socials">
+      {iconLinks.map(({ href, icon, label }) => (
+        <a href={href} class="social" aria-label={label}>
+          <Icon icon={icon} size="2.25em" />
+        </a>
+      ))}
+    </div>
+
+    <p class="copyright">&copy; {year} Nathan Lannon</p>
+  </div>
+</footer>
+
+<style>
+/* Container */
+.site-footer{
+  position: relative;
+  background: var(--footer-bg, var(--nav-bg));
+  box-shadow:
+      0 -4px 8px var(--footer-bg-shadow, var(--nav-bg-shadow)),
+      0  4px 8px var(--footer-bg-shadow, var(--nav-bg-shadow));
+  color: var(--gray-300);
+  font-size: var(--text-md);
+}
+
+/* Back-to-top button */
+.to-top-btn{
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -50%;          /* half overlaps footer */
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--gradient-subtle);
+  color: var(--accent-regular);
+  box-shadow: var(--shadow-md);
+  transition: transform .35s var(--theme-transition);
+}
+
+@media (prefers-reduced-motion:no-preference){
+  .to-top-btn:hover,
+  .to-top-btn:focus{
+    animation: float 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes float{
+    from{ transform: translateY(0); }   /* rest */
+    to  { transform: translateY(-8px);} /* lift */
+  }
+}
+
+/* Footer inner layer */
+.footer-inner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3.0rem 1.5rem 2.5rem;   /* extra top-padding for the button overlap */
+}
+
+/* Social links */
+.socials{
+  display: flex;
+  gap: 1.75rem;
+}
+
+.social{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--accent-regular);
+  transition: transform .25s var(--theme-transition),
+              color     .25s var(--theme-transition);
+}
+
+.social:hover,
+.social:focus{
+  transform: translateY(-4px);
+  color: var(--accent-light);
+}
+
+.social-label{
+  font-size: var(--text-xs);
+  margin-top: .25rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: currentColor;
+}
+
+/* Desktop tweaks */
+@media (min-width:50em){
+  .footer-inner{
+    flex-direction: column;    /* keep centred column even on desktop */
+  }
+}
+</style>
