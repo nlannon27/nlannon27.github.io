@@ -1,0 +1,212 @@
+---
+import Headline from "../common/Headline.astro";
+import type { Skill } from "../../types";
+
+export interface Props {
+  description: string;
+  skills: Skill[];
+  id?: string;
+}
+
+const { description, skills, id } = Astro.props as Props;
+
+/* build rows of 4/5/4 like before */
+function chunkFixed<T>(arr: T[], pattern = [4, 5, 4]): T[][] {
+  const rows: T[][] = [];
+  let i = 0;
+  for (const size of pattern) {
+    if (i >= arr.length) break;
+    rows.push(arr.slice(i, i + size));
+    i += size;
+  }
+  return rows;
+}
+
+const ordered = skills.sort((a, b) => a.order - b.order);
+const rows = chunkFixed(ordered, [4, 5, 4]);
+
+const ICON_H = "2.75rem";
+---
+
+<section id={id} class="about">
+  <Headline title="About Me" />
+
+  <div class="wrapper">
+    <div class="intro fade-up" data-delay="100">
+      <div class="avatar-mask"></div>
+      <p set:html={description} />
+    </div>
+
+    <div class="skills" style={`--icon-h:${ICON_H}`}>
+      {rows.map((row, r) => (
+        <div class="skills__row">
+          {row.map((s, i) => (
+            <div
+              class={`skills__item fade-up`}
+              data-delay={(200 + (r * 4 + i) * 100).toString()}
+            >
+              <img src={s.img} alt={s.name} />
+              <div class="skills__item-name">{s.name}</div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+    .about {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-block: 3rem;
+    }
+
+    .underline {
+        display: block;
+        width: 6rem;
+        height: 0.4rem;
+        border-radius: 0.25rem;
+        background: var(--accent-regular, #ff4d5a);
+        margin: 0.6rem auto 0;
+    }
+
+    .wrapper {
+        display: grid;
+        gap: 2rem;
+    }
+    @media (min-width: 60em) {
+        .wrapper {
+            /* 60 % text | 40 % pills  */
+            grid-template-columns: 3fr 2fr;
+            align-items: center;
+        }
+    }
+
+    .intro {
+        max-width: 60ch;
+        margin-inline: auto;
+        text-align: center;
+    }
+    @media (min-width: 60em) {
+        .intro {
+            text-align: left;
+            margin-inline: 0;
+        }
+    }
+
+    .avatar-mask {
+        width: 50%;
+        max-width: 14rem;
+        aspect-ratio: 1;
+        display: block;
+        margin-inline: auto;
+        margin-block: 2rem 3rem;
+
+        background: var(--gradient-accent);
+
+        /* shrink the SVG to ~85 % inside the square so the stroke isn’t clipped */
+        -webkit-mask: url("/assets/avatar.svg") center / 85% 85% no-repeat;
+        mask: url("/assets/avatar.svg") center / 85% 85% no-repeat;
+    }
+    @media (min-width: 60em) {
+        .avatar-mask {
+            align-self: center;
+        }
+    }
+
+    p {
+        font-size: var(--text-lg, 1.125rem);
+        line-height: 1.6;
+        color: var(--gray-300, #d1d5db);
+    }
+
+    .skills {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        align-items: center;
+    }
+    .skills__row {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* pill */
+    .skills__item {
+        width: 9rem;
+        min-height: 5rem;
+        padding: 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        text-align: center;
+        font-weight: 600;
+        color: var(--accent-text-over, #fff);
+        border-radius: 1rem;
+        position: relative;
+    }
+
+    /* gradient outline */
+    .skills__item::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        padding: 2px;
+        border-radius: inherit;
+        background: var(
+            --gradient-accent,
+            linear-gradient(45deg, #51a2e9, #ff4d5a)
+        );
+        -webkit-mask:
+            linear-gradient(#000 0 0) content-box,
+            linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    /* icon */
+    .skills__item img {
+        height: var(--icon-h);
+        width: auto;
+        object-fit: contain;
+        user-select: none;
+        pointer-events: none;
+        display: block;
+    }
+
+    /* label */
+    .skills__item-name {
+        text-transform: uppercase;
+        font-size: var(--text-sm, 1.125rem);
+        line-height: 1.6;
+        color: var(--gray-300, #d1d5db);
+    }
+
+    @media (hover: hover) {
+        .skills__item {
+            transition: transform 0.2s ease;
+        }
+        .skills__item:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+    }
+
+    .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    .visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: inherit;
+    }
+</style>

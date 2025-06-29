@@ -1,0 +1,37 @@
+---
+export interface Props {
+  title: string;
+}
+const { title } = Astro.props as Props;
+---
+
+<header class="headline">
+  <h2 class="headline__title" set:html={title} />
+  <span class="headline__bar"></span>
+</header>
+
+<style>
+  .headline {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  @media (min-width: 48em) {
+    .headline {
+      margin-bottom: 6rem;
+    }
+  }
+  .headline__title {
+    font-size: var(--text-4xl, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gray-100, #f3f4f6);
+  }
+  .headline__bar {
+    display: block;
+    width: 6rem;
+    height: 0.4rem;
+    margin: 0.75rem auto 0;
+    border-radius: 0.25rem;
+    background: var(--accent-regular, #ff4d5a);
+  }
+</style>

@@ -1,0 +1,123 @@
+---
+import type { ImageTimelineItem } from "../../types";
+
+export interface Props {
+    /** timeline entries */
+    items?: (ImageTimelineItem & { img?: string })[];
+    /** placeholder if img missing */
+    fallbackImg?: string;
+}
+
+const { items = [], fallbackImg = "/assets/placeholder.svg" } =
+    Astro.props as Props;
+---
+
+<ul class="timeline timeline--img">
+    {
+        items.map(({ title, subtitle, period, description, image }, i) => (
+            <li class="item fade-up" data-delay={200}>
+                <span class="logo-wrap">
+                    <img
+                        src={image || fallbackImg}
+                        alt={title ?? "school logo"}
+                        class="logo"
+                        loading="lazy"
+                        width="72"
+                        height="72"
+                    />
+                </span>
+
+                <div class="content">
+                    {title && <p class="title" set:html={title} />}
+                    {subtitle && <p class="subtitle" set:html={subtitle} />}
+                    {period && <p class="period" set:html={period} />}
+                    {description && <div class="desc" set:html={description} />}
+                </div>
+            </li>
+        ))
+    }
+</ul>
+
+<style>
+    .timeline {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .item {
+        position: relative;
+        padding-left: 8rem;
+        margin-bottom: 2rem;
+    }
+
+    .item::before {
+        content: "";
+        position: absolute;
+        left: 3rem;
+        top: 4.5rem;
+        bottom: -2rem;
+        width: 1px;
+        background: var(--gray-700, #374151);
+    }
+    .item:last-child::before {
+        display: none;
+    }
+
+    .logo-wrap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+        border: 3px solid var(--accent-regular, #ff4d5a);
+        overflow: hidden;
+        background: var(--gray-800, #0d1117);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo {
+        max-width: 80%;
+        max-height: 80%;
+        height: auto;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .title {
+        margin: 0;
+        font-size: var(--text-xl, 1.25rem);
+        font-weight: 700;
+        color: var(--gray-100, #f3f4f6);
+    }
+    .subtitle {
+        margin: 0;
+        font-size: var(--text-lg, 1rem);
+        font-weight: 500;
+        color: var(--gray-100, #f3f4f6);
+    }
+    .period {
+        margin: 0;
+        font-size: var(--text-md, 0.875rem);
+        font-weight: 400;
+        color: var(--gray-200, #9ca3af);
+    }
+    .desc {
+        margin: 0.25rem 0 0;
+        font-size: var(--text-md, 0.875rem);
+        font-weight: 400;
+        color: var(--gray-400, #9ca3af);
+    }
+
+    .fade-up {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    .visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: inherit;
+    }
+</style>

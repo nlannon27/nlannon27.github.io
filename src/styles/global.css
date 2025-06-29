@@ -54,6 +54,8 @@
   --font-body: 'Public Sans', var(--font-system);
   --font-brand: Rubik, var(--font-system);
   --theme-transition: .2s ease-in-out;
+
+  scroll-padding-top: 4rem;
 }
 
 
@@ -70,6 +72,7 @@
   --gray-600: #4c4c63;
   --gray-700: #38384b;
   --gray-800: #272732;
+  --gray-850: #111115;
   --gray-900: #14141a;
   --gray-999-basis: 270 25% 6%;
   --gray-999: #0b0b0c;
@@ -109,7 +112,7 @@ body {
 }
 
 body {
-	background-color: var(--gray-999);
+	background-color: var(--gray-850);
 	color: var(--gray-200);
 	font-family: var(--font-body);
 	-webkit-font-smoothing: antialiased;

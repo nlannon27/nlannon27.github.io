@@ -1,0 +1,172 @@
+---
+export interface Props { variant?: 'site' | 'hero' }
+const { variant = 'site' } = Astro.props;
+---
+<canvas
+  data-variant={variant}
+  class={`bg-canvas ${variant}`}
+></canvas>
+
+<style>
+/* default canvas — covers the whole viewport, locked behind content */
+.bg-canvas.site{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+  pointer-events:none;
+}
+
+/* hero-only canvas — just fills the header */
+.bg-canvas.hero{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  pointer-events:none;
+}
+</style>
+
+<script is:inline>
+  (() => {
+    const getCSS = name =>
+    getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+
+    /* get the canvas that sits right before this script */
+    const canvasEl = document.currentScript.previousElementSibling;
+    if (!(canvasEl instanceof HTMLCanvasElement)) {
+      console.warn("BackgroundCanvas: no canvas found");
+      return;
+    }
+
+    const VARIANT = canvasEl.dataset.variant || "site";
+    const MAX_PARTICLES = VARIANT === "hero" ? 200 : 100;
+
+    /* config */
+    const COLORS = [
+      getCSS("--accent-regular") || "#ff4d5a",
+      "#22d3ee",
+      "#a78bfa",
+    ];
+    const SIZE = [1.0, 2.0];
+    const SPEED = [0.02, 0.08];
+    const LIFE = [600, 1400];
+    const CONNECT = 160;
+
+    /* helpers */
+    const rand = (min, max) => min + Math.random() * (max - min);
+    const wrap = (d, w, h) => {
+      if (d.x < -d.r) d.x = w + d.r;
+      else if (d.x > w + d.r) d.x = -d.r;
+      if (d.y < -d.r) d.y = h + d.r;
+      else if (d.y > h + d.r) d.y = -d.r;
+    };
+
+    /* particle */
+    class Dot {
+      constructor(w, h) {
+        this.respawn(w, h);
+      }
+      respawn(w, h) {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.r = rand(...SIZE);
+        const a = Math.random() * 6.28,
+          s = rand(...SPEED);
+        this.vx = Math.cos(a) * s;
+        this.vy = Math.sin(a) * s;
+        this.c = COLORS[(Math.random() * COLORS.length) | 0];
+        this.life = rand(...LIFE);
+        this.age = 0;
+      }
+      step(w, h) {
+        this.x += this.vx;
+        this.y += this.vy;
+        wrap(this, w, h);
+        if (++this.age > this.life) this.respawn(w, h);
+      }
+      get alpha() {
+        const half = this.life / 2;
+        return this.age < half ? this.age / half : 1 - (this.age - half) / half;
+      }
+    }
+
+    /* canvas setup */
+    const ctx = canvasEl.getContext("2d");
+    const DPR = window.devicePixelRatio || 1;
+    let w,
+      h,
+      dots = [];
+
+    const resize = () => {
+      /* physical bitmap */
+      canvasEl.width = innerWidth * DPR;
+      canvasEl.height = innerHeight * DPR;
+
+      /* logical space (CSS px) */
+      w = innerWidth;
+      h = innerHeight;
+
+      /* reset transform then scale */
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+      dots = Array.from({ length: MAX_PARTICLES }, () => new Dot(w, h));
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    /* cursor for hero links */
+    const cursor = { x: -9999, y: -9999 };
+    if (VARIANT === "hero") {
+      addEventListener("pointermove", (e) => {
+        cursor.x = e.clientX;
+        cursor.y = e.clientY;
+      });
+      addEventListener("pointerleave", () => {
+        cursor.x = cursor.y = -9999;
+      });
+    }
+
+    /* main loop */
+    const loop = () => {
+      ctx.clearRect(0, 0, w, h);
+      for (const d of dots) {
+        d.step(w, h);
+        ctx.globalAlpha = d.alpha;
+        ctx.fillStyle = d.c;
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, d.r, 0, 6.28);
+        ctx.fill();
+      }
+
+      if (VARIANT === "hero") {
+        ctx.lineWidth = 1;
+        for (let i = 0; i < dots.length; i++) {
+          const a = dots[i];
+          for (let j = i + 1; j < dots.length; j++) {
+            const b = dots[j];
+            const dx = a.x - b.x,
+              dy = a.y - b.y,
+              dist = Math.hypot(dx, dy);
+            if (dist < CONNECT && Math.hypot(a.x - cursor.x, a.y - cursor.y) < CONNECT) {
+              const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+              g.addColorStop(0, a.c);
+              g.addColorStop(1, b.c);
+              ctx.strokeStyle = g;
+              ctx.globalAlpha = Math.min(a.alpha, b.alpha);
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      requestAnimationFrame(loop);
+    };
+    loop();
+  })();
+</script>
