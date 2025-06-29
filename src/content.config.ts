@@ -2,15 +2,25 @@ import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
 export const collections = {
-	work: defineCollection({
-		loader: glob({ base: './src/content/work', pattern: '**/*.md', }),
+	projects: defineCollection({
+		type: 'content',
 		schema: z.object({
+			order: z.number().optional(),
 			title: z.string(),
 			description: z.string(),
-			publishDate: z.coerce.date(),
-			tags: z.array(z.string()),
-			img: z.string(),
-			img_alt: z.string().optional(),
+			longDescription: z.string().optional(),
+			start: z.coerce.date(),
+			end: z.coerce.date().optional(),
+			highlight: z.string(),
+			images: z.array(z.string()).optional(),
+			videos: z.array(z.string()).optional(),
+			links: z.array(
+				z.object({
+					label: z.string(),
+					href: z.string().url(),
+					icon: z.string(),
+				})
+			).optional(),
 		}),
 	}),
 

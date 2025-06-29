@@ -1,0 +1,61 @@
+---
+import {
+  getCollection,
+  type CollectionEntry,
+  render,
+} from 'astro:content';
+
+import BaseLayout    from '../../layouts/BaseLayout.astro';
+import MediaCarousel from '../../components/widgets/MediaCarousel.astro';
+import { Icon }      from 'astro-icon/components';
+
+/* ──────────────────────────────────────────────────────────────
+   Types
+   ────────────────────────────────────────────────────────────── */
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Static paths – one page per markdown file in /content/projects
+   ────────────────────────────────────────────────────────────── */
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((entry) => ({
+    params: { slug: entry.slug },   // filename without extension
+    props:  { entry },              // pass full entry as prop
+  }));
+}
+
+/* `entry` is injected via props thanks to getStaticPaths() */
+const { entry } = Astro.props as Props;
+const { Content } = await render(entry);
+const {
+  title,
+  description,
+  start,
+  end,
+  images = [],
+  videos = [],
+  links = [],
+} = entry.data;
+---
+
+<BaseLayout title={title}>
+  <MediaCarousel images={images} videos={videos} />
+
+  <article class="prose lg:prose-lg max-w-none">
+    <Content />
+  </article>
+
+  <footer class="mt-12 text-sm text-gray-500">
+    <p class="italic">
+      {start.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+      {' — '}
+      {(end ?? new Date()).toLocaleDateString('en-US', {
+        month: 'short',
+        year: 'numeric',
+      })}
+    </p>
+  </footer>
+</BaseLayout>

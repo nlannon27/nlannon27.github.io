@@ -38,5 +38,6 @@ export const iconPaths = {
 	'instagram-logo': `<circle cx="128" cy="128" r="40" fill="none" stroke-miterlimit="10" stroke-width="16"/><rect width="184" height="184" x="36" y="36" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" rx="48"/><circle cx="180" cy="76" r="12" stroke="none" />`,
 	'tiktok-logo': `<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M168 106a96 96 0 0 0 56 18V84a56 56 0 0 1-56-56h-40v128a28 28 0 1 1-40-25V89a68 68 0 1 0 80 67Z"/>`,
 	'arrow-up': `<polyline fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="48 144 128 64 208 144"/> <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="128" y1="224" x2="128" y2="64"/>`,
-	'arrow-down': `<polyline fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="48 112 128 192 208 112" /> <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="128" y1="32" x2="128" y2="192" />`
+	'arrow-down': `<polyline fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="48 112 128 192 208 112" /> <line fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" x1="128" y1="32" x2="128" y2="192" />`,
+	'email-logo': `<rect width="192" height="144" x="32" y="56" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" rx="8"/> <polyline fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" points="224 56 128 144 32 56"/>`,
 };

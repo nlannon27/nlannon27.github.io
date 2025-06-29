@@ -34,3 +34,5 @@ export interface AboutData {
   description: string;
   skills: Skill[];
 }
+
+export type Project = CollectionEntry<'projects'>;
