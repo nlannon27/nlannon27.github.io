@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/portfolio/Hero.astro";
+import Icon from "../components/common/Icon.astro";
+---
+
+<BaseLayout showTopButton={false}>
+	<Hero
+		headline="404 — Page not found"
+		subline="It looks like you've taken a wrong turn."
+		showCTA={true}
+		ctaHref="/"
+		ctaLabel="Return Home"
+		ctaIcon="arrow-left"
+	/>
+</BaseLayout>
+
+<style>
+	.home-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.9rem 1.75rem;
+		font-size: var(--text-lg);
+		border: 2px solid var(--accent-regular);
+		border-radius: 0.5rem;
+		color: var(--accent-regular);
+		transition:
+			background 0.25s,
+			color 0.25s,
+			box-shadow 0.25s;
+	}
+	.home-btn:hover,
+	.home-btn:focus {
+		background: var(--accent-regular);
+		color: var(--accent-text-over);
+		box-shadow: 0 0 0 4px var(--accent-overlay);
+	}
+</style>

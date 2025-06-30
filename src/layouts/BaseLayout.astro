@@ -1,0 +1,58 @@
+---
+// Learn about using Astro layouts:
+// https://docs.astro.build/en/core-concepts/layouts/
+
+// Component Imports
+import MainHead from "../components/widgets/MainHead.astro";
+import BackgroundCanvas from "../components/common/BackgroundCanvas.astro";
+// import Nav from '../components/Nav.astro';
+import Footer from "../components/portfolio/Footer.astro";
+
+interface Props {
+	title?: string | undefined;
+	description?: string | undefined;
+	showTopButton?: boolean;
+}
+
+const { title, description, showTopButton = true } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<MainHead title={title} description={description} />
+	</head>
+	<body>
+		<BackgroundCanvas />
+
+		<div class="stack">
+			<!-- <Nav /> -->
+			<slot />
+			<Footer showTopButton={showTopButton} />
+		</div>
+
+		<script>
+			// Add “loaded” class once the document has completely loaded.
+			addEventListener("load", () =>
+				document.documentElement.classList.add("loaded"),
+			);
+		</script>
+	</body>
+</html>
+
+<script is:inline>
+	/* once-per-element fade-up */
+	const io = new IntersectionObserver(
+		(entries, o) => {
+			entries.forEach((e) => {
+				if (e.isIntersecting) {
+					const d = e.target.dataset.delay || 0;
+					e.target.style.transition = `opacity .6s ease ${d}ms,transform .6s ease ${d}ms`;
+					e.target.classList.add("visible");
+					o.unobserve(e.target);
+				}
+			});
+		},
+		{ threshold: 0.1 },
+	);
+	document.querySelectorAll(".fade-up").forEach((el) => io.observe(el));
+</script>

@@ -1,0 +1,25 @@
+---
+const { images = [], videos = [] } = Astro.props;
+const media = [...images, ...videos];
+---
+
+{media.length > 0 && (
+  <div class="carousel relative overflow-hidden">
+    <div class="track flex snap-x snap-mandatory overflow-x-auto scroll-smooth">
+      {media.map((src, i) => (
+        src.match(/\.(mp4|webm)$/i)
+          ? <video
+              src={src} controls
+              class="snap-center shrink-0 w-full max-w-lg aspect-video object-cover"
+              style={`--i:${i}`}
+            />
+          : <img
+              src={src} loading="lazy"
+              class="snap-center shrink-0 w-full max-w-lg aspect-video object-cover"
+              style={`--i:${i}`}
+            />
+      ))}
+    </div>
+    <!-- left / right buttons: hidden until you fancy them up -->
+  </div>
+)}

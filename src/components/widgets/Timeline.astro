@@ -1,0 +1,124 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Item } from "../../types";
+
+export interface Props {
+  items?: Item[];
+  defaultIcon?: string;
+}
+
+const { items = [], defaultIcon = "tabler:circle" } = Astro.props as Props;
+---
+
+<ul class="timeline">
+  {
+    items.map(({ title, subtitle, period, stack, description, icon }, i) => (
+      <li class="item fade-up" data-delay={200}>
+        <span class="dot">
+          <Icon name={icon || defaultIcon} class="dot__icon" />
+        </span>
+
+        <div class="content">
+          {title && <p class="title" set:html={title} />}
+          {subtitle && <p class="subtitle" set:html={subtitle} />}
+          {period && <p class="period" set:html={period} />}
+          {stack && stack.length > 0 && (
+            <p class="stack">
+              {stack.join(", ")}
+            </p>
+          )}
+          {description && <div class="desc" set:html={description} />}
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .item {
+    position: relative;
+    padding-left: 3.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .item::before {
+    content: "";
+    position: absolute;
+    left: 1.25rem;
+    top: 2.75rem;
+    bottom: -2rem;
+    width: 1px;
+    background: var(--gray-700, #374151);
+  }
+  .item:last-child::before {
+    display: none;
+  }
+
+  .dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 2px solid var(--accent-regular, #ff4d5a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-999, #0d1117);
+  }
+  .dot__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--accent-regular, #ff4d5a);
+  }
+
+  .title {
+    margin: 0;
+    font-size: var(--text-xl, 1.25rem);
+    font-weight: 700;
+    color: var(--gray-100, #f3f4f6);
+  }
+  .subtitle {
+    margin: 0;
+    font-size: var(--text-lg, 1rem);
+    font-weight: 500;
+    color: var(--gray-100, #f3f4f6);
+  }
+  .period {
+    margin: 0;
+    font-size: var(--text-md, 0.875rem);
+    font-weight: 400;
+    color: var(--gray-200, #9ca3af);
+  }
+  .stack {
+    margin: 0;
+    font-size: var(--text-md, 0.875rem);
+    font-weight: 200;
+    color: var(--gray-200, #d1d5db);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  .desc {
+    margin: 0.25rem 0 0;
+    font-size: var(--text-md, 0.875rem);
+    font-weight: 400;
+    color: var(--gray-400, #9ca3af);
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: inherit;
+  }
+</style>

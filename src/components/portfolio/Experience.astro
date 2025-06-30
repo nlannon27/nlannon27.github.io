@@ -1,0 +1,74 @@
+---
+import Headline from "../common/Headline.astro";
+import Timeline from "../widgets/Timeline.astro";
+import type { Steps as Props } from "../../types";
+
+const {
+  title,
+  items,
+  image = await Astro.slots.render("image"),
+  isReversed = false,
+  id,
+} = Astro.props as Props;
+---
+
+<section id={id} class="steps">
+  <div class="fade-up" data-delay="100">
+    <Headline {title} />
+  </div>
+
+  <div class={`inner ${isReversed ? "inner--rev" : ""}`}>
+    <Timeline items={items} defaultIcon="tabler:briefcase" />
+
+    {
+      image && (
+        <div class="img">
+          {typeof image === "string" ? (
+            <div set:html={image} />
+          ) : (
+            <slot name="image" />
+          )}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .steps {
+    padding: 5rem 1rem;
+  }
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+  .inner--rev {
+    flex-direction: column-reverse;
+  }
+  @media (min-width: 48em) {
+    .inner {
+      flex-direction: row;
+    }
+    .inner--rev {
+      flex-direction: row-reverse;
+    }
+    .img {
+      flex: 1 1 0;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: inherit;
+  }
+</style>
