@@ -1,19 +1,8 @@
 ---
 order: 2
 title: RUMI – Photogrammetry Pipeline
-description: Automated pipeline turning ROV footage into geo-positioned 3D worlds.
-longDescription: |
-  Photogrammetry converts overlapping images into accurate 3D meshes.  
-  We applied the technique to raw footage from ROV **Hercules**, then wrapped
-  the workflow in a set of Python + C++ tools that ingest a dive’s data and
-  output an optimised, geo-referenced environment ready for Unreal Engine.
-
-  The pipeline now runs unattended after every expedition, providing fresh
-  digital mapping for scientists and for the RUMI Simulator.
-start: 2022-05-01
-end: 2023-12-01
-highlight: ./placeholder.webp
-images: []
+description: Photogrammetry is a method of 3D model creation using images or videos. We applied this technique to underwater footage captured by ROV Hercules to construct accurate geo-positioned digital environments of the seafloor. This process was later refined into a suite of tools to automatically process a dive's data into a digital world.
+highlight: /assets/projects/rumi-photogrammetry.png
 links:
   - label: GitHub
     href: https://github.com/oetproduction/rc_main

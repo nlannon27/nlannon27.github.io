@@ -19,7 +19,7 @@ const projects = (await getCollection('projects')).sort(
       const delay  = 100;
 
       const ImageBlock = (
-        <a href={`/projects/${slug}/`} class="project__image-link">
+        <a class="project__image-link">
           <div class="project__image-container fade-up" data-delay={delay}>
             <img src={data.highlight} alt={`${data.title} cover`} loading="lazy" />
           </div>
@@ -30,10 +30,6 @@ const projects = (await getCollection('projects')).sort(
         <div class="project__info fade-up" data-delay={delay + 75}>
           <h3 class="project__title" set:html={data.title} />
           <p class="project__description">{data.description}</p>
-
-          <a href={`/projects/${slug}/`} class="project__live-2">
-            <Icon name="tabler:book" class="link-icon" /> Learn&nbsp;More
-          </a>
 
           {data.links?.map((l) => (
             <a

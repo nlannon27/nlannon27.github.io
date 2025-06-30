@@ -1,17 +1,8 @@
 ---
 order: 3
 title: Sandbox Cellular Automata
-description: A C++/SFML sandbox for falling-sand–style cellular automata.
-longDescription: |
-  Written in modern C++ with **SFML** and OpenGL. Elements are implemented as
-  polymorphic classes, making it trivial to add new behaviours without touching
-  the simulation core.
-
-  Next steps include spatial partitioning (quad-trees or spatial hash grids) to
-  support larger worlds and more complex element interactions.
-start: 2022-06-01
-highlight: ./placeholder.webp
-images: []
+description: Cellular Automata written in C++ using the SFML OpenGL library. Created using classes with polymorphism to allow for easy editing and creation of new elements. In the future I plan to optimize more by implementing a chunk based system like quadtrees or spatial hash grids. This would allow me to create more complicated elements or use a bigger grid.
+highlight: /assets/projects/sandbox.gif
 links:
   - label: GitHub
     href: https://github.com/d3nosaur/SFML-Sandbox

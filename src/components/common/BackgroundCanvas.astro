@@ -121,8 +121,9 @@ const { variant = 'site' } = Astro.props;
     const cursor = { x: -9999, y: -9999 };
     if (VARIANT === "hero") {
       addEventListener("pointermove", (e) => {
-        cursor.x = e.clientX;
-        cursor.y = e.clientY;
+        const rect = canvasEl.getBoundingClientRect()
+        cursor.x = e.clientX - rect.left;
+        cursor.y = e.clientY - rect.top;
       });
       addEventListener("pointerleave", () => {
         cursor.x = cursor.y = -9999;

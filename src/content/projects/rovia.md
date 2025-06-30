@@ -1,16 +1,8 @@
 ---
 order: 5
 title: ROVIA
-description: Deep‐learning tool that flags highlight clips in underwater video.
-longDescription: |
-  **ROVIA** uses a convolutional neural network to scan ROV footage in real
-  time, detect events of scientific interest, and export a highlights reel.
-
-  My contribution focused on multiprocessing and batch inference, cutting both
-  training and runtime costs dramatically.
-start: 2023-01-01
-highlight: ./placeholder.webp
-images: []
+description: A python deep neural network that analyzes underwater video footage and extracts highlight clips. I contributed to this project by optimizing both training and inference time.
+highlight: /assets/projects/oet-hercules-image.jpg
 links:
   - label: Project Page
     href: https://web.uri.edu/oeci/about/oeci-projects-main-page/projects-machine-learning-video/

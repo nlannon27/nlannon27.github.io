@@ -1,15 +1,7 @@
 ---
 order: 4
 title: Vehicle Simulator
-description: Randomised traffic-aware vehicle sim built in Unreal Engine 4.
-longDescription: |
-  Developed during my internship at **ThayerMahan**. Features:
-
-  * Automatic path generation with lane changes  
-  * Collision-avoidance AI for intersections and signals  
-  * Modular components & interfaces for easy expansion
-start: 2023-07-01
-highlight: ./placeholder.webp
-images: []
+description: A randomized vehicle simulator project made in Unreal Engine 4. Includes traffic signals, collision avoidance, and automatic path creation. Easily expandable and modifiable through built in components and interfaces. Created during my internship with ThayerMahan.
+highlight: /assets/projects/ue4_collision_demo.gif
 links: []
 ---

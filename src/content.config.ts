@@ -8,12 +8,7 @@ export const collections = {
 			order: z.number().optional(),
 			title: z.string(),
 			description: z.string(),
-			longDescription: z.string().optional(),
-			start: z.coerce.date(),
-			end: z.coerce.date().optional(),
 			highlight: z.string(),
-			images: z.array(z.string()).optional(),
-			videos: z.array(z.string()).optional(),
 			links: z.array(
 				z.object({
 					label: z.string(),
