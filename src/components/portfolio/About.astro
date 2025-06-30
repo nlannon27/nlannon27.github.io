@@ -3,23 +3,23 @@ import Headline from "../common/Headline.astro";
 import type { Skill } from "../../types";
 
 export interface Props {
-  description: string;
-  skills: Skill[];
-  id?: string;
+    description: string;
+    skills: Skill[];
+    id?: string;
 }
 
 const { description, skills, id } = Astro.props as Props;
 
 /* build rows of 4/5/4 like before */
 function chunkFixed<T>(arr: T[], pattern = [4, 5, 4]): T[][] {
-  const rows: T[][] = [];
-  let i = 0;
-  for (const size of pattern) {
-    if (i >= arr.length) break;
-    rows.push(arr.slice(i, i + size));
-    i += size;
-  }
-  return rows;
+    const rows: T[][] = [];
+    let i = 0;
+    for (const size of pattern) {
+        if (i >= arr.length) break;
+        rows.push(arr.slice(i, i + size));
+        i += size;
+    }
+    return rows;
 }
 
 const ordered = skills.sort((a, b) => a.order - b.order);
@@ -29,30 +29,35 @@ const ICON_H = "2.75rem";
 ---
 
 <section id={id} class="about">
-  <Headline title="About Me" />
+    <Headline title="About Me" />
 
-  <div class="wrapper">
-    <div class="intro fade-up" data-delay="100">
-      <div class="avatar-mask"></div>
-      <p set:html={description} />
-    </div>
-
-    <div class="skills" style={`--icon-h:${ICON_H}`}>
-      {rows.map((row, r) => (
-        <div class="skills__row">
-          {row.map((s, i) => (
-            <div
-              class={`skills__item fade-up`}
-              data-delay={(200 + (r * 4 + i) * 100).toString()}
-            >
-              <img src={s.img} alt={s.name} />
-              <div class="skills__item-name">{s.name}</div>
-            </div>
-          ))}
+    <div class="wrapper">
+        <div class="intro fade-up" data-delay="100">
+            <div class="avatar-mask"></div>
+            <p set:html={description} />
         </div>
-      ))}
+
+        <div class="skills" style={`--icon-h:${ICON_H}`}>
+            {
+                rows.map((row, r) => (
+                    <div class="skills__row">
+                        {row.map((s, i) => (
+                            <div
+                                class={`skills__item fade-up`}
+                                data-delay={(
+                                    200 +
+                                    (r * 4 + i) * 100
+                                ).toString()}
+                            >
+                                <img src={s.img} alt={s.name} />
+                                <div class="skills__item-name">{s.name}</div>
+                            </div>
+                        ))}
+                    </div>
+                ))
+            }
+        </div>
     </div>
-  </div>
 </section>
 
 <style>
@@ -208,5 +213,11 @@ const ICON_H = "2.75rem";
         opacity: 1;
         transform: translateY(0);
         transition: inherit;
+    }
+
+    @media (max-width: 60em) {
+        .skills {
+            display: none;
+        }
     }
 </style>

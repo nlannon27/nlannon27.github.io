@@ -9,23 +9,23 @@ const { variant = 'site' } = Astro.props;
 
 <style>
 /* default canvas — covers the whole viewport, locked behind content */
-.bg-canvas.site{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:-2;
-  pointer-events:none;
+.bg-canvas.site {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
 }
 
 /* hero-only canvas — just fills the header */
-.bg-canvas.hero{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
-  pointer-events:none;
+.bg-canvas.hero {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
   background-color: var(--gray-850);
 }
 </style>
@@ -33,23 +33,29 @@ const { variant = 'site' } = Astro.props;
 <script is:inline>
   (() => {
     const getCSS = name =>
-    getComputedStyle(document.documentElement).getPropertyValue(name).trim()
+      getComputedStyle(document.documentElement)
+        .getPropertyValue(name)
+        .trim();
 
-    /* get the canvas that sits right before this script */
+    /* get the canvas */
     const canvasEl = document.currentScript.previousElementSibling;
     if (!(canvasEl instanceof HTMLCanvasElement)) {
-      console.warn("BackgroundCanvas: no canvas found");
+      console.warn('BackgroundCanvas: no canvas found');
       return;
     }
 
-    const VARIANT = canvasEl.dataset.variant || "site";
-    const MAX_PARTICLES = VARIANT === "hero" ? 200 : 100;
+    const VARIANT = canvasEl.dataset.variant || 'site';
+    // base for 16:9, min/max for clamping
+    const BASE_COUNT = VARIANT === 'hero' ? 200 : 100;
+    const MIN_COUNT = VARIANT === 'hero' ? 100 : 50;
+    const MAX_COUNT = VARIANT === 'hero' ? 400 : 200;
+    const IDEAL_ASPECT = 16 / 9;
 
     /* config */
     const COLORS = [
-      getCSS("--accent-regular") || "#ff4d5a",
-      "#22d3ee",
-      "#a78bfa",
+      getCSS('--accent-regular') || '#ff4d5a',
+      '#22d3ee',
+      '#a78bfa',
     ];
     const SIZE = [1.0, 2.0];
     const SPEED = [0.02, 0.08];
@@ -74,7 +80,7 @@ const { variant = 'site' } = Astro.props;
         this.x = Math.random() * w;
         this.y = Math.random() * h;
         this.r = rand(...SIZE);
-        const a = Math.random() * 6.28,
+        const a = Math.random() * Math.PI * 2,
           s = rand(...SPEED);
         this.vx = Math.cos(a) * s;
         this.vy = Math.sin(a) * s;
@@ -90,43 +96,48 @@ const { variant = 'site' } = Astro.props;
       }
       get alpha() {
         const half = this.life / 2;
-        return this.age < half ? this.age / half : 1 - (this.age - half) / half;
+        return this.age < half
+          ? this.age / half
+          : 1 - (this.age - half) / half;
       }
     }
 
     /* canvas setup */
-    const ctx = canvasEl.getContext("2d");
+    const ctx = canvasEl.getContext('2d');
     const DPR = window.devicePixelRatio || 1;
-    let w,
-      h,
-      dots = [];
+    let w, h, dots = [];
 
     const resize = () => {
       /* physical bitmap */
       canvasEl.width = innerWidth * DPR;
       canvasEl.height = innerHeight * DPR;
 
-      /* logical space (CSS px) */
+      /* logical space */
       w = innerWidth;
       h = innerHeight;
 
       /* reset transform then scale */
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      dots = Array.from({ length: MAX_PARTICLES }, () => new Dot(w, h));
+      /* compute count based on aspect ratio */
+      const aspect = w / h;
+      const scaled = Math.round(BASE_COUNT * (aspect / IDEAL_ASPECT));
+      const count = Math.max(MIN_COUNT, Math.min(scaled, MAX_COUNT));
+
+      dots = Array.from({ length: count }, () => new Dot(w, h));
     };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener('resize', resize);
 
-    /* cursor for hero links */
+    /* cursor for hero */
     const cursor = { x: -9999, y: -9999 };
-    if (VARIANT === "hero") {
-      addEventListener("pointermove", (e) => {
-        const rect = canvasEl.getBoundingClientRect()
+    if (VARIANT === 'hero') {
+      addEventListener('pointermove', e => {
+        const rect = canvasEl.getBoundingClientRect();
         cursor.x = e.clientX - rect.left;
         cursor.y = e.clientY - rect.top;
       });
-      addEventListener("pointerleave", () => {
+      addEventListener('pointerleave', () => {
         cursor.x = cursor.y = -9999;
       });
     }
@@ -139,11 +150,11 @@ const { variant = 'site' } = Astro.props;
         ctx.globalAlpha = d.alpha;
         ctx.fillStyle = d.c;
         ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, 6.28);
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      if (VARIANT === "hero") {
+      if (VARIANT === 'hero') {
         ctx.lineWidth = 1;
         for (let i = 0; i < dots.length; i++) {
           const a = dots[i];
@@ -152,7 +163,10 @@ const { variant = 'site' } = Astro.props;
             const dx = a.x - b.x,
               dy = a.y - b.y,
               dist = Math.hypot(dx, dy);
-            if (dist < CONNECT && Math.hypot(a.x - cursor.x, a.y - cursor.y) < CONNECT) {
+            if (
+              dist < CONNECT &&
+              Math.hypot(a.x - cursor.x, a.y - cursor.y) < CONNECT
+            ) {
               const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
               g.addColorStop(0, a.c);
               g.addColorStop(1, b.c);
