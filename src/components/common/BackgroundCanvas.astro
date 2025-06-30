@@ -1,66 +1,68 @@
 ---
-export interface Props { variant?: 'site' | 'hero' }
-const { variant = 'site' } = Astro.props;
+export interface Props {
+  variant?: "site" | "hero";
+}
+const { variant = "site" } = Astro.props;
 ---
-<canvas
-  data-variant={variant}
-  class={`bg-canvas ${variant}`}
-></canvas>
+
+<canvas data-variant={variant} class={`bg-canvas ${variant}`}></canvas>
 
 <style>
-/* default canvas — covers the whole viewport, locked behind content */
-.bg-canvas.site {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  pointer-events: none;
-}
+  /* default canvas — covers the whole viewport, locked behind content */
+  .bg-canvas.site {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+  }
 
-/* hero-only canvas — just fills the header */
-.bg-canvas.hero {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-  background-color: var(--gray-850);
-}
+  /* hero-only canvas — just fills the header */
+  .bg-canvas.hero {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--gray-850);
+  }
 </style>
 
 <script is:inline>
   (() => {
-    const getCSS = name =>
-      getComputedStyle(document.documentElement)
-        .getPropertyValue(name)
-        .trim();
+    const getCSS = (name) =>
+      getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
     /* get the canvas */
     const canvasEl = document.currentScript.previousElementSibling;
     if (!(canvasEl instanceof HTMLCanvasElement)) {
-      console.warn('BackgroundCanvas: no canvas found');
+      console.warn("BackgroundCanvas: no canvas found");
       return;
     }
 
-    const VARIANT = canvasEl.dataset.variant || 'site';
+    const VARIANT = canvasEl.dataset.variant || "site";
     // base for 16:9, min/max for clamping
-    const BASE_COUNT = VARIANT === 'hero' ? 200 : 100;
-    const MIN_COUNT = VARIANT === 'hero' ? 100 : 50;
-    const MAX_COUNT = VARIANT === 'hero' ? 400 : 200;
+    const BASE_COUNT = VARIANT === "hero" ? 200 : 100;
+    const MIN_COUNT = VARIANT === "hero" ? 100 : 50;
+    const MAX_COUNT = VARIANT === "hero" ? 400 : 200;
     const IDEAL_ASPECT = 16 / 9;
 
     /* config */
     const COLORS = [
-      getCSS('--accent-regular') || '#ff4d5a',
-      '#22d3ee',
-      '#a78bfa',
+      getCSS("--accent-regular") || "#ff4d5a",
+      "#22d3ee",
+      "#a78bfa",
     ];
     const SIZE = [1.0, 2.0];
     const SPEED = [0.02, 0.08];
     const LIFE = [600, 1400];
-    const CONNECT = 160;
+
+    const BASE_CONNECT = 160;
+    const MIN_CONNECT = 80;
+    const MAX_CONNECT = 320;
+    let CONNECT = BASE_CONNECT;
 
     /* helpers */
     const rand = (min, max) => min + Math.random() * (max - min);
@@ -96,16 +98,16 @@ const { variant = 'site' } = Astro.props;
       }
       get alpha() {
         const half = this.life / 2;
-        return this.age < half
-          ? this.age / half
-          : 1 - (this.age - half) / half;
+        return this.age < half ? this.age / half : 1 - (this.age - half) / half;
       }
     }
 
     /* canvas setup */
-    const ctx = canvasEl.getContext('2d');
+    const ctx = canvasEl.getContext("2d");
     const DPR = window.devicePixelRatio || 1;
-    let w, h, dots = [];
+    let w,
+      h,
+      dots = [];
 
     const resize = () => {
       /* physical bitmap */
@@ -123,21 +125,31 @@ const { variant = 'site' } = Astro.props;
       const aspect = w / h;
       const scaled = Math.round(BASE_COUNT * (aspect / IDEAL_ASPECT));
       const count = Math.max(MIN_COUNT, Math.min(scaled, MAX_COUNT));
+      CONNECT = Math.max(
+        MIN_CONNECT,
+        Math.min(BASE_CONNECT * (aspect / IDEAL_ASPECT), MAX_CONNECT),
+      );
 
-      dots = Array.from({ length: count }, () => new Dot(w, h));
+      if (dots.length < count) {
+        for (let i = dots.length; i < count; i++) {
+          dots.push(new Dot(w, h));
+        }
+      } else if (dots.length > count) {
+        dots.length = count;
+      }
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     /* cursor for hero */
     const cursor = { x: -9999, y: -9999 };
-    if (VARIANT === 'hero') {
-      addEventListener('pointermove', e => {
+    if (VARIANT === "hero") {
+      addEventListener("pointermove", (e) => {
         const rect = canvasEl.getBoundingClientRect();
         cursor.x = e.clientX - rect.left;
         cursor.y = e.clientY - rect.top;
       });
-      addEventListener('pointerleave', () => {
+      addEventListener("pointerleave", () => {
         cursor.x = cursor.y = -9999;
       });
     }
@@ -154,7 +166,7 @@ const { variant = 'site' } = Astro.props;
         ctx.fill();
       }
 
-      if (VARIANT === 'hero') {
+      if (VARIANT === "hero") {
         ctx.lineWidth = 1;
         for (let i = 0; i < dots.length; i++) {
           const a = dots[i];

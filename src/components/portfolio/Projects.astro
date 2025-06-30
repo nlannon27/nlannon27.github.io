@@ -139,4 +139,10 @@ const projects = (await getCollection('projects')).sort(
 /* ------------ fade-up base ----------- */
 .fade-up { opacity: 0; transform: translateY(20px); }
 .visible { opacity: 1; transform: none; transition: inherit; }
+
+@media (max-width: 61.99em) {
+  .projects {
+    padding-inline: 1rem;
+  }
+}
 </style>
