@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import type { ImageTimelineItem, TimelineItem, Skill, Project } from "../types";
+
+// Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Component Imports
+import BackgroundCanvas from "../components/common/BackgroundCanvas.astro";
+
+// Portfolio Components
+import Hero from "../components/portfolio/Hero.astro";
+import Nav from "../components/portfolio/Nav.astro";
+import About from "../components/portfolio/About.astro";
+import Education from "../components/portfolio/Education.astro";
+import Experience from "../components/portfolio/Experience.astro";
+import Projects from "../components/portfolio/Projects.astro";
+
+// Content Fetching
+const projects: Project[] = await getCollection('projects');
+
+const educationEntries = await getCollection("education");
+const education: ImageTimelineItem[] = educationEntries
+    .sort(
+        (a, b) =>
+            (a.data.order ?? Number.POSITIVE_INFINITY) -
+            (b.data.order ?? Number.POSITIVE_INFINITY),
+    )
+    .map(({ data }) => ({
+        title: data.title,
+        subtitle: data.subtitle,
+        period: data.period,
+        description: data.description,
+        image: data.image,
+    }));
+
+const experienceEntries = await getCollection("experience");
+const work: TimelineItem[] = experienceEntries
+    .sort(
+        (a, b) =>
+            (a.data.order ?? Number.POSITIVE_INFINITY) -
+            (b.data.order ?? Number.POSITIVE_INFINITY),
+    )
+    .map(({ data }) => ({
+        title: data.title,
+        subtitle: data.subtitle,
+        period: data.period,
+        stack: data.stack || [],
+        description: data.description,
+        icon: data.icon,
+    }));
+
+const aboutDescription = (await getCollection("about"))
+    .map(({ data }) => data.description)
+    .join("\n\n");
+
+const skills: Skill[] = (await getCollection("skills"))
+    .map(({ data }) => data)
+    .sort((a, b) => a.order - b.order);
+---
+
+<BaseLayout showTopButton={true}>
+    <div class="stack gap-8 lg:gap-20">
+        <header id="hero" class="hero">
+            <BackgroundCanvas variant="hero" />
+            <Hero name="Nathan" role="I'm a Software Developer" ctaHref="#projects" />
+        </header>
+
+        <Nav />
+
+        <main class="wrapper stack gap-20 lg:gap-38 pb-12">
+            <About id="about" description={aboutDescription} skills={skills} />
+            <Education id="education" title="Education" items={education} />
+            <Experience id="experience" title="Work Experience" items={work} />
+            <Projects id="projects" />
+        </main>
+    </div>
+</BaseLayout>
+
+<style>
+    .wrapper.stack {
+        padding-bottom: 6rem;
+	}
+</style>

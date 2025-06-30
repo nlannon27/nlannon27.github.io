@@ -1,0 +1,245 @@
+/* Global variables */
+/* Light theme */
+:root {
+  /* Grays */
+  --gray-0:   #0b0b0c;
+  --gray-50:  #14141a;
+  --gray-100: #272732;
+  --gray-200: #38384b;
+  --gray-300: #4c4c63;
+  --gray-400: #63637a;
+  --gray-500: #8a8aa1;
+  --gray-600: #a8a8bb;
+  --gray-700: #cacadb;
+  --gray-800: #e3e3ef;
+  --gray-900: #f7f7fb;
+  --gray-999-basis: 0 0% 100%;
+  --gray-999_40: hsla(var(--gray-999-basis) / 0.4);
+  --gray-999: #ffffff;
+
+  /* Accent colors */
+  --accent-light:   #ff9966;
+  --accent-regular: #d84a2f;
+  --accent-dark:    #7c1211;
+  --accent-overlay: hsla(11 70% 54% / .33);
+  --accent-subtle-overlay: hsla(11 70% 34% / .33);
+  --accent-text-over: var(--gray-999);
+
+  --link-color: var(--accent-regular);
+
+  /* Gradients */
+  --gradient-stop-1: var(--accent-light);
+  --gradient-stop-2: var(--accent-regular);
+  --gradient-stop-3: var(--accent-dark);
+  --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 150%);
+  --gradient-accent: linear-gradient(150deg, var(--gradient-stop-1), var(--gradient-stop-2), var(--gradient-stop-3));
+  --gradient-accent-orange: linear-gradient(150deg, #ff9c7b, var(--accent-regular), var(--accent-dark));
+  --gradient-stroke: linear-gradient(180deg, var(--gray-900), var(--gray-700));
+
+  /* Shadows */
+  --shadow-sm: 0 6px 3px rgb(9 11 17 / 1%), 0 4px 2px rgb(9 11 17 / 1%), 0 2px 2px rgb(9 11 17 / 2%), 0 0 1px rgb(9 11 17 / 3%);
+  --shadow-md: 0 28px 11px rgb(9 11 17 / 1%), 0 16px 10px rgb(9 11 17 / 3%), 0 7px 7px rgb(9 11 17 / 5%), 0 2px 4px rgb(9 11 17 / 6%);
+  --shadow-lg: 0 62px 25px rgb(9 11 17 / 1%), 0 35px 21px rgb(9 11 17 / 5%), 0 16px 16px rgb(9 11 17 / 10%), 0 4px 9px rgb(9 11 17 / 12%);
+
+  /* Component backgrounds */
+  --nav-bg:    var(--gray-900);
+  --nav-bg-shadow: var(--gray-800);
+  --footer-bg: var(--gray-900);
+  --footer-bg-shadow: var(--gray-800);
+
+  /* Typography & misc */
+  --text-sm: 0.875rem; --text-base: 1rem; --text-md: 1.125rem; --text-lg: 1.25rem;
+  --text-xl: 1.625rem; --text-2xl: 2.125rem; --text-3xl: 2.625rem; --text-4xl: 3.5rem; --text-5xl: 4.5rem;
+  --font-system: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-body: 'Public Sans', var(--font-system);
+  --font-brand: Rubik, var(--font-system);
+  --theme-transition: .2s ease-in-out;
+
+  scroll-padding-top: 4rem;
+}
+
+
+/* Dark theme */
+:root.theme-dark {
+  /* Grays are inverted to keep contrast */
+  --gray-0:   #ffffff;
+  --gray-50:  #f7f7fb;
+  --gray-100: #e3e3ef;
+  --gray-200: #cacadb;
+  --gray-300: #a8a8bb;
+  --gray-400: #8a8aa1;
+  --gray-500: #63637a;
+  --gray-600: #4c4c63;
+  --gray-700: #38384b;
+  --gray-800: #272732;
+  --gray-850: #111115;
+  --gray-900: #14141a;
+  --gray-999-basis: 270 25% 6%;
+  --gray-999: #0b0b0c;
+
+  /* Accent colors */
+  --accent-light:   #7c1211; 
+  --accent-regular: #d84a2f;
+  --accent-dark:    #ff9966;
+  --accent-overlay: hsla(11 70% 44% / .33);
+  --accent-subtle-overlay: hsla(11 70% 30% / .33);
+  --accent-text-over: var(--gray-0);
+
+  --link-color: var(--accent-dark);
+
+  --gradient-stop-1: var(--accent-light);
+  --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
+  --gradient-accent-orange: linear-gradient(150deg, #ff9c7b, var(--accent-regular), var(--accent-light));
+  --gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
+
+  --nav-bg:    var(--gray-900);
+  --nav-bg-shadow: var(--gray-800);
+  --footer-bg: var(--gray-900);
+  --footer-bg-shadow: var(--gray-800);
+
+  /* Shadows keep white-tinted RGBA to stand out on dark bg */
+  --shadow-sm: 0 6px 3px rgb(255 255 255 / 1%), 0 4px 2px rgb(255 255 255 / 1%), 0 2px 2px rgb(255 255 255 / 2%), 0 0 1px rgb(255 255 255 / 3%);
+  --shadow-md: 0 28px 11px rgb(255 255 255 / 1%), 0 16px 10px rgb(255 255 255 / 3%), 0 7px 7px rgb(255 255 255 / 5%), 0 2px 4px rgb(255 255 255 / 6%);
+  --shadow-lg: 0 62px 25px rgb(255 255 255 / 1%), 0 35px 21px rgb(255 255 255 / 5%), 0 16px 16px rgb(255 255 255 / 10%), 0 4px 9px rgb(255 255 255 / 12%);
+}
+
+
+html,
+body {
+	scroll-behavior: smooth;
+	min-height: 100%;
+	max-width: 100%;
+}
+
+body {
+	background-color: var(--gray-850);
+	color: var(--gray-200);
+	font-family: var(--font-body);
+	-webkit-font-smoothing: antialiased;
+	line-height: 1.5;
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	margin: 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: var(--link-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	line-height: 1.1;
+	font-family: var(--font-brand);
+	font-weight: 600;
+	color: var(--gray-100);
+}
+
+h1 {
+	font-size: var(--text-5xl);
+}
+
+h2 {
+	font-size: var(--text-4xl);
+}
+
+h3 {
+	font-size: var(--text-3xl);
+}
+
+h4 {
+	font-size: var(--text-2xl);
+}
+
+h5 {
+	font-size: var(--text-xl);
+}
+
+/* Utilities */
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.wrapper {
+	width: 100%;
+	max-width: 83rem;
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+}
+
+.gap-2 {
+	gap: 0.5rem;
+}
+.gap-4 {
+	gap: 1rem;
+}
+.gap-8 {
+	gap: 2rem;
+}
+.gap-10 {
+	gap: 2.5rem;
+}
+.gap-15 {
+	gap: 3.75rem;
+}
+.gap-20 {
+	gap: 5rem;
+}
+.gap-30 {
+	gap: 7.5rem;
+}
+.gap-48 {
+	gap: 12rem;
+}
+
+@media (min-width: 50em) {
+	.lg\:gap-2 {
+		gap: 0.5rem;
+	}
+	.lg\:gap-4 {
+		gap: 1rem;
+	}
+	.lg\:gap-8 {
+		gap: 2rem;
+	}
+	.lg\:gap-10 {
+		gap: 2.5rem;
+	}
+	.lg\:gap-15 {
+		gap: 3.75rem;
+	}
+	.lg\:gap-20 {
+		gap: 5rem;
+	}
+	.lg\:gap-30 {
+		gap: 7.5rem;
+	}
+	.lg\:gap-48 {
+		gap: 12rem;
+	}
+}
