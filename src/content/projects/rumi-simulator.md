@@ -7,4 +7,7 @@ links:
   - label: Tech Post
     href: https://nautiluslive.org/tech/realtime-underwater-modeling-and-immersion
     icon: tabler:ship
+  - label: SIGGRAPH 2024 Talk
+    href: https://dl.acm.org/doi/abs/10.1145/3641233.3664357
+    icon: tabler:file-spark
 ---
