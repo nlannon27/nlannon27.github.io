@@ -128,6 +128,9 @@ class Fluid {
             this.velocityY,
             dt
         )
+
+        // fade density
+        this.fadeDensity()
     }
 
     /**

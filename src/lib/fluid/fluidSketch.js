@@ -39,7 +39,7 @@ export default (p5) => {
             prevMouseY = p5.mouseY;
         }
 
-        const xPix = renderScale * 2;
+        const xPix = p5.width / 2;
         const yPix = (p5.height * 0.5) + Math.sin(t) * (p5.height * 0.4);
 
         const gx = Math.floor(xPix / renderScale);
@@ -48,7 +48,7 @@ export default (p5) => {
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
                 fluid.addDensity(gx + i, gy + j, 120);
-                fluid.addVelocity(gx + i, gy + j, 1.4, 0);
+                fluid.addVelocity(gx + i, gy + j, Math.sin(t * 4), -0.4);
             }
         }
         t += 0.03;
