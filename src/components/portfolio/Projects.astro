@@ -2,12 +2,15 @@
 import { getCollection } from "astro:content";
 import Headline from "../common/Headline.astro";
 import { Icon } from "astro-icon/components";
+import FluidCanvas from "../common/FluidCanvas.astro";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) =>
     (a.data.order ?? Number.POSITIVE_INFINITY) -
     (b.data.order ?? Number.POSITIVE_INFINITY),
 );
+
+const isImage = (v: string) => /[./](png|jpe?g|gif|webp)$/i.test(v);
 ---
 
 <section id="projects" class="projects">
@@ -20,7 +23,7 @@ const projects = (await getCollection("projects")).sort(
           const isOdd = i % 2 === 1;
           const delay = 100;
 
-          const ImageBlock = (
+          const ImageBlock = isImage(data.highlight) ? (
             <a class="project__image-link">
               <div class="project__image-container fade-up" data-delay={delay}>
                 <img
@@ -30,6 +33,8 @@ const projects = (await getCollection("projects")).sort(
                 />
               </div>
             </a>
+          ) : (
+            <FluidCanvas />
           );
 
           const InfoBlock = (
