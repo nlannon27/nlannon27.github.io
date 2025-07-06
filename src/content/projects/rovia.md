@@ -7,4 +7,7 @@ links:
   - label: Project Page
     href: https://web.uri.edu/oeci/about/oeci-projects-main-page/projects-machine-learning-video/
     icon: tabler:external-link
+  - label: Publication
+    href: https://digitalcommons.uri.edu/gsofacpubs/2489/
+    icon: tabler:file-spark
 ---
