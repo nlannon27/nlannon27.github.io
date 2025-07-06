@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import Headline from '../common/Headline.astro';
-import { Icon } from 'astro-icon/components';
+import { getCollection } from "astro:content";
+import Headline from "../common/Headline.astro";
+import { Icon } from "astro-icon/components";
 
-const projects = (await getCollection('projects')).sort(
+const projects = (await getCollection("projects")).sort(
   (a, b) =>
     (a.data.order ?? Number.POSITIVE_INFINITY) -
     (b.data.order ?? Number.POSITIVE_INFINITY),
@@ -13,136 +13,176 @@ const projects = (await getCollection('projects')).sort(
 <section id="projects" class="projects">
   <Headline title="Projects" />
 
-  <section class="projects__list">
-    {projects.map(({ slug, data }, i) => {
-      const isOdd  = i % 2 === 1;
-      const delay  = 100;
+  <div class="projects__wrapper">
+    <section class="projects__list">
+      {
+        projects.map(({ slug, data }, i) => {
+          const isOdd = i % 2 === 1;
+          const delay = 100;
 
-      const ImageBlock = (
-        <a class="project__image-link">
-          <div class="project__image-container fade-up" data-delay={delay}>
-            <img src={data.highlight} alt={`${data.title} cover`} loading="lazy" />
-          </div>
-        </a>
-      );
-
-      const InfoBlock = (
-        <div class="project__info fade-up" data-delay={delay + 75}>
-          <h3 class="project__title" set:html={data.title} />
-          <p class="project__description">{data.description}</p>
-
-          {data.links?.map((l) => (
-            <a
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project__live-2"
-            >
-              <Icon name={l.icon} class="link-icon" /> {l.label}
+          const ImageBlock = (
+            <a class="project__image-link">
+              <div class="project__image-container fade-up" data-delay={delay}>
+                <img
+                  src={data.highlight}
+                  alt={`${data.title} cover`}
+                  loading="lazy"
+                />
+              </div>
             </a>
-          ))}
-        </div>
-      );
+          );
 
-      return (
-        <div class="project fade-up" data-delay={delay - 50}>
-          {isOdd ? (
-            <>
-              {InfoBlock}
-              {ImageBlock}
-            </>
-          ) : (
-            <>
-              {ImageBlock}
-              {InfoBlock}
-            </>
-          )}
-        </div>
-      );
-    })}
-  </section>
+          const InfoBlock = (
+            <div class="project__info fade-up" data-delay={delay + 75}>
+              <h3 class="project__title" set:html={data.title} />
+              <p class="project__description">{data.description}</p>
+
+              {data.links?.map((l) => (
+                <a
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project__live-2"
+                >
+                  <Icon name={l.icon} class="link-icon" /> {l.label}
+                </a>
+              ))}
+            </div>
+          );
+
+          return (
+            <div class="project fade-up" data-delay={delay - 50}>
+              {isOdd ? (
+                <>
+                  {InfoBlock}
+                  {ImageBlock}
+                </>
+              ) : (
+                <>
+                  {ImageBlock}
+                  {InfoBlock}
+                </>
+              )}
+            </div>
+          );
+        })
+      }
+    </section>
+  </div>
 </section>
 
 <style>
-/* ------------ section ----------- */
-.projects       { padding-block: 3rem; }
-.projects__list { display: flex; flex-direction: column; gap: 6rem; }
-
-/* ------------ row container ----------- */
-.project {
-  display: flex;
-  flex-direction: column;          /* mobile = stacked */
-  gap: 3rem;
-  align-items: center;
-}
-@media (min-width: 62em) {
-  .project {                      /* desktop side-by-side */
-    flex-direction: row;
-    gap: 4rem;
-    max-width: 90rem;
+  /* ---------- section ---------- */
+  .projects {
+    padding: 3rem 1rem;
+  }
+  .projects__wrapper {
+    width: min(100%, 70rem);
     margin-inline: auto;
   }
-}
-
-/* mobile: image first, text second (regardless of odd/even) */
-@media (max-width: 61.99em) {
-  .project__image-link { order: 0; }
-  .project__info       { order: 1; }
-}
-
-/* ------------ image block ----------- */
-.project__image-container {
-  width: 100%;
-  border-radius: 1rem;
-  overflow: hidden;
-  background: var(--gray-800, #1f2937);
-  box-shadow: var(--shadow-sm, 0 4px 20px rgb(0 0 0 / .25));
-}
-@media (min-width: 62em) { .project__image-container { flex: 0 0 60%; } }
-
-/* hover zoom / brighten */
-@media (hover:hover) {
-  .project__image-link img {
-    display: block; width: 100%; height: auto; object-fit: cover;
-    transition: transform .4s ease, filter .4s ease;
+  .projects__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
   }
-  .project__image-link:hover img { transform: scale(1.05); filter: brightness(1.05); }
-}
 
-/* ------------ info block ----------- */
-.project__info { display: flex; flex-direction: column; gap: .5rem; }
-@media (min-width: 62em) { .project__info { flex: 0 0 40%; } }
-
-.project__title {
-  margin: 0;
-  font: 700 var(--text-3xl, 2.25rem) / 1.12 var(--font-brand, inherit);
-}
-.project__description { margin: 0; line-height: 1.6; color: var(--gray-300,#d1d5db); }
-
-/* ------------ buttons ----------- */
-.project__live-2 {
-  display: inline-flex; align-items: center; gap: .5rem;
-  margin-top: .5rem;
-  text-transform: uppercase; font-weight: 600; letter-spacing: .05em;
-  text-decoration: none; position: relative;
-}
-.project__live-2::after {
-  content:""; position:absolute; left:0; bottom:-2px;
-  width:100%; height:1px; background:currentColor;
-  transform:scaleX(0); transform-origin:left;
-  transition:transform .25s ease;
-}
-.project__live-2:hover::after { transform: scaleX(1); }
-
-.link-icon { width: 1.1rem; height: 1.1rem; }
-
-/* ------------ fade-up base ----------- */
-.fade-up { opacity: 0; transform: translateY(20px); }
-.visible { opacity: 1; transform: none; transition: inherit; }
-
-@media (max-width: 61.99em) {
-  .projects {
-    padding-inline: 1rem;
+  /* ---------- each project row ---------- */
+  /* mobile: stacked, image first */
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
-}
+  .project__image-link {
+    order: 1;
+  }
+  .project__info {
+    order: 2;
+  }
+
+  /* desktop layout + alternate order */
+  @media (min-width: 48em) {
+    .project {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+      gap: 2rem;
+    }
+    .project:nth-child(even) .project__image-link {
+      order: 2;
+    }
+    .project:nth-child(even) .project__info {
+      order: 1;
+    }
+  }
+
+  /* ---------- image ---------- */
+  .project__image-container {
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--gray-800, #1f2937);
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.25);
+  }
+  .project__image-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+  @media (hover: hover) {
+    .project__image-link:hover img {
+      transform: scale(1.05);
+      filter: brightness(1.05);
+    }
+  }
+
+  /* ---------- info ---------- */
+  .project__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .project__title {
+    margin: 0;
+    font: 700 2rem/1.15 var(--font-brand, inherit);
+  }
+  .project__description {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--gray-300, #d1d5db);
+  }
+
+  /* ---------- links ---------- */
+  .project__live-2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    position: relative;
+  }
+  .project__live-2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .project__live-2:hover::after {
+    transform: scaleX(1);
+  }
+  .link-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
 </style>
