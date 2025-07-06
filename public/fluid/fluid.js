@@ -1,20 +1,19 @@
 import { cellIndex, diffuseField, enforceIncompressibility, advectField } from './mathUtils.js'
 
-// gridSize is number of cells per row and column
-const gridSize = 256
-// numSolverPasses is number of Gauss–Seidel iterations
-const numSolverPasses = 16
-// renderScale enlarges each cell when drawing
-const renderScale = 4
-// colors to use for density and velocity
+const gridSize = 256;
+const numSolverPasses = 16;
+
+let renderScale = 4;
+export function setRenderScale(s) { renderScale = s };
+export function getRenderScale() { return renderScale };
+
 const palette = [
     '#63637a',  // background
     '#22d3ee',  // teal
     '#a78bfa',  // purple
     '#ff4d5a',  // orange
 ]
-const DENSITY_CUT   = 20;   // do not draw if d < 20
-// lookup-table to reduce color interpolation at runtime
+const DENSITY_CUT = 20;
 const densityLUT = (() => {
   // "#rrggbb" → [r,g,b] helper
   const toRGB = (hex) => {
