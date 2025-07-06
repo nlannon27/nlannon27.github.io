@@ -130,7 +130,7 @@ class Fluid {
         )
 
         // fade density
-        this.fadeDensity()
+        this.fadeDensity(dt)
     }
 
     /**
@@ -163,7 +163,7 @@ class Fluid {
 
         for (let y = 0, idx = 0; y < gridSize; y++) {
             for (let x = 0; x < gridSize; x++, idx++) {
-                const d = this.density[idx] & 255;     // cheap clamp 0-255
+                const d = Math.min(255, this.density[idx] | 0);
                 if (d < DENSITY_CUT) 
                     continue;
 
@@ -220,9 +220,11 @@ class Fluid {
      * fadeDensity()
      * Gradually reduce density in each cell
      */
-    fadeDensity() {
+    fadeDensity(dt) {
+        const decay = 0.02;
+        const k = 1 - decay * dt;
         for (let i = 0; i < this.density.length; i++) {
-            this.density[i] = Math.max(0, this.density[i] - 0.06);
+            this.density[i] *= k;
         }
     }
 }

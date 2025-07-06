@@ -31,7 +31,7 @@ export default (p5) => {
             const gy = Math.floor(p5.mouseY / renderScale);
             for (let i = -1; i <= 1; i++) {
                 for (let j = -1; j <= 1; j++) {
-                    fluid.addDensity(gx + i, gy + j, p5.random(50, 350));
+                    fluid.addDensity(gx + i, gy + j, p5.random(50, 10));
                 }
             }
             fluid.addVelocity(gx, gy, vx, vy);
@@ -47,7 +47,7 @@ export default (p5) => {
 
         for (let i = -1; i <= 1; i++) {
             for (let j = -1; j <= 1; j++) {
-                fluid.addDensity(gx + i, gy + j, 120);
+                fluid.addDensity(gx + i, gy + j, p5.random(50, 250));
                 fluid.addVelocity(gx + i, gy + j, Math.sin(t * 4), -0.4);
             }
         }
