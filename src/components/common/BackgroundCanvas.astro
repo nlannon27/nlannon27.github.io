@@ -35,7 +35,6 @@ const { variant = "site" } = Astro.props;
     const getCSS = (name) =>
       getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-    /* get the canvas */
     const canvasEl = document.currentScript.previousElementSibling;
     if (!(canvasEl instanceof HTMLCanvasElement)) {
       console.warn("BackgroundCanvas: no canvas found");
@@ -43,13 +42,18 @@ const { variant = "site" } = Astro.props;
     }
 
     const VARIANT = canvasEl.dataset.variant || "site";
-    // base for 16:9, min/max for clamping
+
+    /* --- mobile check & toggle --- */
+    const isMobile = () => innerWidth <= 768 || navigator.maxTouchPoints > 0;
+    let connectEnabled = !isMobile();
+
+    /* particle count baselines */
     const BASE_COUNT = VARIANT === "hero" ? 200 : 100;
     const MIN_COUNT = VARIANT === "hero" ? 100 : 50;
     const MAX_COUNT = VARIANT === "hero" ? 400 : 200;
     const IDEAL_ASPECT = 16 / 9;
 
-    /* config */
+    /* particle look & feel */
     const COLORS = [
       getCSS("--accent-regular") || "#ff4d5a",
       "#22d3ee",
@@ -73,7 +77,7 @@ const { variant = "site" } = Astro.props;
       else if (d.y > h + d.r) d.y = -d.r;
     };
 
-    /* particle */
+    /* particle object */
     class Dot {
       constructor(w, h) {
         this.respawn(w, h);
@@ -105,23 +109,17 @@ const { variant = "site" } = Astro.props;
     /* canvas setup */
     const ctx = canvasEl.getContext("2d");
     const DPR = window.devicePixelRatio || 1;
-    let w,
-      h,
-      dots = [];
+    let w, h, dots = [];
 
     const resize = () => {
-      /* physical bitmap */
       canvasEl.width = innerWidth * DPR;
       canvasEl.height = innerHeight * DPR;
-
-      /* logical space */
       w = innerWidth;
       h = innerHeight;
-
-      /* reset transform then scale */
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      /* compute count based on aspect ratio */
+      connectEnabled = !isMobile();
+
       const aspect = w / h;
       const scaled = Math.round(BASE_COUNT * (aspect / IDEAL_ASPECT));
       const count = Math.max(MIN_COUNT, Math.min(scaled, MAX_COUNT));
@@ -129,21 +127,19 @@ const { variant = "site" } = Astro.props;
         MIN_CONNECT,
         Math.min(BASE_CONNECT * (aspect / IDEAL_ASPECT), MAX_CONNECT),
       );
-
       if (dots.length < count) {
         for (let i = dots.length; i < count; i++) {
           dots.push(new Dot(w, h));
         }
-      } else if (dots.length > count) {
+      } else if (dots.length > count) 
         dots.length = count;
-      }
     };
     resize();
-    window.addEventListener("resize", resize);
+    addEventListener("resize", resize);
 
-    /* cursor for hero */
+    /* cursor tracking only when lines active */
     const cursor = { x: -9999, y: -9999 };
-    if (VARIANT === "hero") {
+    if (VARIANT === "hero" && connectEnabled) {
       addEventListener("pointermove", (e) => {
         const rect = canvasEl.getBoundingClientRect();
         cursor.x = e.clientX - rect.left;
@@ -166,7 +162,8 @@ const { variant = "site" } = Astro.props;
         ctx.fill();
       }
 
-      if (VARIANT === "hero") {
+      /* draw connecting lines only on non-mobile hero */
+      if (connectEnabled && VARIANT === "hero") {
         ctx.lineWidth = 1;
         for (let i = 0; i < dots.length; i++) {
           const a = dots[i];
