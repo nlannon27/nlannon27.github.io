@@ -1,5 +1,5 @@
-import p5 from 'p5';
-import sketch from './fluidSketch.js';
+import p5 from "https://cdn.jsdelivr.net/npm/p5@1.6.0/+esm";
+import sketch from "./fluidSketch.js";
 
 export function mount(target) {
   const instance = new p5(sketch, target);
@@ -8,8 +8,10 @@ export function mount(target) {
   const observer = new IntersectionObserver(
     (entries) => {
       for (const e of entries) {
-        if (e.isIntersecting) instance.loop();
-        else                   instance.noLoop();
+        if (e.isIntersecting) 
+          instance.loop();
+        else
+          instance.noLoop();
       }
     },
     { threshold: 0 }
@@ -19,3 +21,5 @@ export function mount(target) {
 
   return instance;
 }
+
+mount("fluid-root")
