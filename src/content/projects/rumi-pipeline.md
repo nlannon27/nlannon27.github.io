@@ -7,6 +7,9 @@ links:
   - label: Project Page
     href: https://web.uri.edu/oeci/about/oeci-projects-main-page/projects-realtime-undersea-modeling-and-immersion/
     icon: tabler:external-link
+  - label: Model Viewer
+    href: https://evnautilus.nira.app/gallery
+    icon: tabler:cube
   - label: GitHub
     href: https://github.com/oetproduction/rc_main
     icon: tabler:brand-github
