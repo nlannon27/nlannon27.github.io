@@ -12,7 +12,6 @@ export default (p5) => {
     let prevMouseX = -1;
     let prevMouseY = -1;
     let renderMode = 0; // 0 = density, 1 = velocity
-    let renderMode = 0;      // 0 = density, 1 = velocity
     let t = 0;
 
     // pause state
