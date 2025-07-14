@@ -22,4 +22,4 @@ export function mount(target) {
   return instance;
 }
 
-mount("fluid-root")
+mount(document.getElementById("fluid-root"));
