@@ -19,6 +19,7 @@ export default (p5) => {
     let button_x = 0;
     let button_y = 0;
     let button_diameter = 0;
+    let pressStartedOnUI = false;
 
     // canvas sizing
     let canvasSize = 0;
@@ -37,7 +38,8 @@ export default (p5) => {
         button_x = button_diameter * 0.6;
         button_y = p5.height - button_diameter * 0.6;
 
-        const hover = mouseOverPause();
+        const _p = getPointer();
+        const hover = mouseOverPause(_p.x, _p.y);
 
         // button background
         p5.noStroke();
@@ -67,9 +69,17 @@ export default (p5) => {
         }
     }
 
-    function mouseOverPause() {
-        const dx = p5.mouseX - button_x;
-        const dy = p5.mouseY - button_y;
+    function getPointer() {
+        if (p5.touches && p5.touches.length > 0) {
+            const t0 = p5.touches[0];
+            return { x: t0.x, y: t0.y };
+        }
+        return { x: p5.mouseX, y: p5.mouseY };
+    }
+
+    function mouseOverPause(px, py) {
+        const dx = px - button_x;
+        const dy = py - button_y;
         return dx * dx + dy * dy <= (button_diameter * 0.5) ** 2;
     }
 
@@ -79,9 +89,9 @@ export default (p5) => {
         fluid = new Fluid(0.2, 0, 1e-7);
 
         p5.canvas.style.touchAction = "none";
-        for (const e of ["touchstart", "touchmove", "touchend"]) {
-            p5.canvas.addEventListener(e, (ev) => ev.preventDefault(), { passive: false });
-        }
+        ["touchstart","touchmove","touchend","touchcancel"].forEach(evType=>{
+            p5.canvas.addEventListener(evType, e=>e.preventDefault(), {passive:false});
+        });
 
         resizeToParent();
         window.addEventListener("resize", resizeToParent);
@@ -92,21 +102,22 @@ export default (p5) => {
 
         // skip sim update when paused
         if (!isPaused) {
+            const _ptr = getPointer();
             const inside =
-                p5.mouseX >= 0 && p5.mouseX < p5.width &&
-                p5.mouseY >= 0 && p5.mouseY < p5.height;
+                _ptr.x >= 0 && _ptr.x < p5.width &&
+                _ptr.y >= 0 && _ptr.y < p5.height;
 
-            // mouse interaction
-            if (inside) {
+            // mouse/touch interaction
+            if (inside && !pressStartedOnUI) {
                 if (prevMouseX < 0) {
-                    prevMouseX = p5.mouseX;
-                    prevMouseY = p5.mouseY;
+                    prevMouseX = _ptr.x;
+                    prevMouseY = _ptr.y;
                 }
 
-                const vx = (p5.mouseX - prevMouseX) * 4;
-                const vy = (p5.mouseY - prevMouseY) * 4;
-                const gx = Math.floor(p5.mouseX / renderScale);
-                const gy = Math.floor(p5.mouseY / renderScale);
+                const vx = (_ptr.x - prevMouseX) * 4;
+                const vy = (_ptr.y - prevMouseY) * 4;
+                const gx = Math.floor(_ptr.x / renderScale);
+                const gy = Math.floor(_ptr.y / renderScale);
 
                 for (let i = -1; i <= 1; i++) {
                     for (let j = -1; j <= 1; j++) {
@@ -115,8 +126,8 @@ export default (p5) => {
                     }
                 }
 
-                prevMouseX = p5.mouseX;
-                prevMouseY = p5.mouseY;
+                prevMouseX = _ptr.x;
+                prevMouseY = _ptr.y;
             } else {
                 prevMouseX = prevMouseY = -1;
             }
@@ -142,11 +153,28 @@ export default (p5) => {
         drawPauseButton();
     };
 
-    p5.mouseClicked = () => {
-        if(mouseOverPause()) {
+    p5.mousePressed = () => {
+        const _p = getPointer();
+        if(mouseOverPause(_p.x, _p.y)) {
             isPaused = !isPaused;
+            pressStartedOnUI = true;
             return false;
         }
+        pressStartedOnUI = false;
         return true;
     };
+
+    p5.touchStarted = () => {
+        const _p = getPointer();
+        if(mouseOverPause(_p.x, _p.y)) {
+            isPaused = !isPaused;
+            pressStartedOnUI = true;
+            return false;
+        }
+        pressStartedOnUI = false;
+        return true;
+    };
+
+    p5.mouseReleased = () => { pressStartedOnUI = false; };
+    p5.touchEnded   = () => { pressStartedOnUI = false; };
 };
