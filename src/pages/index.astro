@@ -2,10 +2,10 @@
 import { getCollection } from "astro:content";
 import type { ImageTimelineItem, TimelineItem, Skill, Project } from "../types";
 
-// Layout import — provides basic page elements: <head>, <nav>, <footer> etc.
+// Layout
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-// Component Imports
+// Basic Components
 import BackgroundCanvas from "../components/common/BackgroundCanvas.astro";
 
 // Portfolio Components
@@ -60,21 +60,19 @@ const skills: Skill[] = (await getCollection("skills"))
 ---
 
 <BaseLayout showTopButton={true}>
-    <div class="stack">
-        <header id="hero" class="hero">
-            <BackgroundCanvas variant="hero" />
-            <Hero name="Nathan" role="I'm a Software Developer" ctaHref="#projects" />
-        </header>
+    <header id="hero" class="hero">
+        <BackgroundCanvas variant="hero" />
+        <Hero name="Nathan" role="I'm a Software Developer" ctaHref="#projects" />
+    </header>
 
-        <Nav />
+    <Nav />
 
-        <main class="wrapper stack gap-20 lg:gap-38 pb-12">
-            <About id="about" description={aboutDescription} skills={skills} />
-            <Education id="education" title="Education" items={education} />
-            <Experience id="experience" title="Work Experience" items={work} />
-            <Projects id="projects" />
-        </main>
-    </div>
+    <main class="wrapper stack gap-20 lg:gap-38 pb-12">
+        <About id="about" description={aboutDescription} skills={skills} />
+        <Education id="education" title="Education" items={education} />
+        <Experience id="experience" title="Work Experience" items={work} />
+        <Projects id="projects" />
+    </main>
 </BaseLayout>
 
 <style>

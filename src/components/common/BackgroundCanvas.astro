@@ -43,7 +43,7 @@ const { variant = "site" } = Astro.props;
 
     const VARIANT = canvasEl.dataset.variant || "site";
 
-    /* --- mobile check & toggle --- */
+    /* mobile check & toggle */
     const isMobile = () => innerWidth <= 768 || navigator.maxTouchPoints > 0;
     let connectEnabled = !isMobile();
 

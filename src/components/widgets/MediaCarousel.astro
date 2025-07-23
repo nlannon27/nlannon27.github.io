@@ -3,6 +3,8 @@ const { images = [], videos = [] } = Astro.props;
 const media = [...images, ...videos];
 ---
 
+<!-- Not currently used, planned use within individual project pages -->
+
 {media.length > 0 && (
   <div class="carousel relative overflow-hidden">
     <div class="track flex snap-x snap-mandatory overflow-x-auto scroll-smooth">
@@ -20,6 +22,5 @@ const media = [...images, ...videos];
             />
       ))}
     </div>
-    <!-- left / right buttons: hidden until you fancy them up -->
   </div>
 )}

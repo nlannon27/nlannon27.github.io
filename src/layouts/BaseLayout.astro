@@ -1,11 +1,7 @@
 ---
-// Learn about using Astro layouts:
-// https://docs.astro.build/en/core-concepts/layouts/
-
 // Component Imports
 import MainHead from "../components/widgets/MainHead.astro";
 import BackgroundCanvas from "../components/common/BackgroundCanvas.astro";
-// import Nav from '../components/Nav.astro';
 import Footer from "../components/portfolio/Footer.astro";
 
 interface Props {
@@ -25,13 +21,12 @@ const { title, description, showTopButton = true } = Astro.props;
 		<BackgroundCanvas />
 
 		<div class="stack">
-			<!-- <Nav /> -->
 			<slot />
 			<Footer showTopButton={showTopButton} />
 		</div>
 
 		<script>
-			// Add “loaded” class once the document has completely loaded.
+			// Add "loaded" class once the document has completely loaded.
 			addEventListener("load", () =>
 				document.documentElement.classList.add("loaded"),
 			);
