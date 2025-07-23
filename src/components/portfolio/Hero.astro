@@ -54,17 +54,13 @@ const {
 <style>
   /* Layout */
   .hero {
-    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding-inline: 1.5rem;
     font-family: var(--font-brand);
-  }
-
-  @supports (height: 100dvh) {
-    .hero { min-height: 100dvh; } /* replace vh with dvh at runtime if supported (better support for strange scaling on certain devices) */
   }
 
   .inner {

@@ -112,12 +112,10 @@ const { variant = "site" } = Astro.props;
     let w, h, dots = [];
 
     const resize = () => {
-      w = canvasEl.offsetWidth;
-      h = canvasEl.offsetHeight;
-
-      canvasEl.width = w * DPR;
-      canvasEl.height = h * DPR;
-      
+      canvasEl.width = innerWidth * DPR;
+      canvasEl.height = innerHeight * DPR;
+      w = innerWidth;
+      h = innerHeight;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
       connectEnabled = !isMobile();
