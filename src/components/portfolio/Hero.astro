@@ -63,6 +63,10 @@ const {
     font-family: var(--font-brand);
   }
 
+  @supports (height: 100dvh) {
+    .hero { min-height: 100dvh; } /* replace vh with dvh at runtime if supported (better support for strange scaling on certain devices) */
+  }
+
   .inner {
     display: flex;
     flex-direction: column;
