@@ -47,6 +47,12 @@ const { variant = "site" } = Astro.props;
     const isMobile = () => innerWidth <= 768 || navigator.maxTouchPoints > 0;
     let connectEnabled = !isMobile();
 
+    /* can't seem to patch address bar issues with the hero on mobile, disable rendering instead */
+    if (VARIANT === 'hero' && isMobile()) {
+      canvasEl.remove();
+      return;
+    }
+
     /* particle count baselines */
     const BASE_COUNT = VARIANT === "hero" ? 200 : 100;
     const MIN_COUNT = VARIANT === "hero" ? 100 : 50;
