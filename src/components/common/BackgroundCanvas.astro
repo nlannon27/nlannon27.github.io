@@ -112,10 +112,8 @@ const { variant = "site" } = Astro.props;
     let w, h, dots = [];
 
     const resize = () => {
-      w = innerWidth;
-      h = VARIANT == "hero" // scale to header height in hero, patches a bug with dynamic top/bottom bars on mobile viewers
-        ? (canvasEl.parentElement?.offsetHeight || innerHeight)
-        : innerHeight;
+      w = canvasEl.offsetWidth;
+      h = canvasEl.offsetHeight;
 
       canvasEl.width = w * DPR;
       canvasEl.height = h * DPR;
