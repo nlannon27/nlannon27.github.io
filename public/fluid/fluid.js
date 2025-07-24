@@ -13,28 +13,33 @@ const palette = [
     '#a78bfa',  // purple
     '#ff4d5a',  // orange
 ]
-const DENSITY_CUT = 20;
-const densityLUT = (() => {
-  // "#rrggbb" → [r,g,b] helper
+const DENSITY_CUT = 5;
+
+const clamp8 = v => (v < 0 ? 0 : v > 255 ? 255 : (v | 0));
+
+// precompute rgba values
+const densityLUT_RGBA = (() => {
   const toRGB = (hex) => {
     const v = parseInt(hex.slice(1), 16);
     return [v >> 16 & 255, v >> 8 & 255, v & 255];
   };
-
   const rgb = palette.map(toRGB);
-  const out = new Array(256);
-
-  for (let d = 0; d < 256; d++) {
-    const t   = d / 255;
+  const out = new Uint8ClampedArray(256 * 4);
+  for(let d = 0; d < 256; d++) {
+    const t = d / 255;
     const seg = t * (palette.length - 1);
-    const i   = Math.floor(seg);
-    const w   = seg - i;
+    const i = Math.floor(seg);
+    const w = seg - i;
 
-    const c0  = rgb[i];
-    const c1  = rgb[Math.min(i + 1, rgb.length - 1)];
+    const c0 = rgb[i];
+    const c1 = rgb[Math.min(i + 1, rgb.length - 1)];
     const mix = (a, b) => Math.round(a + (b - a) * w);
 
-    out[d] = `rgb(${mix(c0[0], c1[0])},${mix(c0[1], c1[1])},${mix(c0[2], c1[2])})`;
+    const o = d * 4;
+    out[o    ] = mix(c0[0], c1[0]);
+    out[o + 1] = mix(c0[1], c1[1]);
+    out[o + 2] = mix(c0[2], c1[2]);
+    out[o + 3] = 255;
   }
   return out;
 })();
@@ -60,6 +65,9 @@ class Fluid {
         this.velocityY = new Array(gridSize * gridSize).fill(0)
         this.prevVelocityX = new Array(gridSize * gridSize).fill(0)
         this.prevVelocityY = new Array(gridSize * gridSize).fill(0)
+
+        // image to render density to
+        this._tex = null
     }
 
     /**
@@ -157,19 +165,46 @@ class Fluid {
         Pick one of the three palette colors based on density
     */
     renderDensity(p) {
-        p.noStroke();
-        p.colorMode(p.RGB, 255);
-
-        for (let y = 0, idx = 0; y < gridSize; y++) {
-            for (let x = 0; x < gridSize; x++, idx++) {
-                const d = Math.min(255, this.density[idx] | 0);
-                if (d < DENSITY_CUT) 
-                    continue;
-
-                p.fill(densityLUT[d]);
-                p.rect(x * renderScale, y * renderScale, renderScale, renderScale);
+        if(!this._tex) {
+            this._tex = p.createGraphics(gridSize, gridSize, p.P2D);
+            if(typeof this._tex.pixelDensity === "function") 
+                this._tex.pixelDensity(1);
+            if(typeof this._tex.noSmooth === "function") 
+                this._tex.noSmooth();
+            if(p.drawingContext && "imageSmoothingEnabled" in p.drawingContext) {
+                p.drawingContext.imageSmoothingEnabled = false;
+            } else if (p.noSmooth) {
+                p.noSmooth();
             }
         }
+
+        const g = this._tex;
+        const W = gridSize, H = gridSize;
+        const dens = this.density;
+
+        g.loadPixels();
+        const px = g.pixels; // Uint8ClampedArray
+
+        // write pixels
+        for(let i = 0, o = 0; i < W * H; i++, o += 4) {
+            const d = clamp8(dens[i] | 0);
+            if (d < DENSITY_CUT) {
+                // transparent pixel
+                px[o    ] = 0;
+                px[o + 1] = 0;
+                px[o + 2] = 0;
+                px[o + 3] = 0;
+                continue;
+            }
+            const lo = d * 4;
+            px[o    ] = densityLUT_RGBA[lo    ];
+            px[o + 1] = densityLUT_RGBA[lo + 1];
+            px[o + 2] = densityLUT_RGBA[lo + 2];
+            px[o + 3] = 255;
+        }
+
+        g.updatePixels();
+        p.image(g, 0, 0, W * renderScale, H * renderScale);
     }
 
     /*
