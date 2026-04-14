@@ -9,7 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/alpinejs": "^0.5.0",
     "@lucide/astro": "^0.525.0",
+    "@types/alpinejs": "^3.13.11",
+    "alpinejs": "^3.15.11",
     "astro": "^5.10.1",
     "lucide-react": "^0.525.0",
     "p5": "^2.0.3",

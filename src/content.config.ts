@@ -8,7 +8,7 @@ export const collections = {
 			order: z.number().optional(),
 			title: z.string(),
 			description: z.string(),
-			highlight: z.string(),
+			highlight: z.array(z.string()).min(1),
 			links: z.array(
 				z.object({
 					label: z.string(),

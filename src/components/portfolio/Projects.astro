@@ -22,12 +22,168 @@ const isImage = (v: string) => typeof v === 'string' && /\.(png|jpe?g|gif|webp)$
         projects.map(({ slug, data }, i) => {
           const isOdd = i % 2 === 1;
           const delay = 100;
+          
+          const images = data.highlight.filter(isImage);
+          const isCarousel = images.length > 1;
+          const isSingleImage = images.length === 1 ? images[0] : null;
+          
+          /* borrowed from https://www.penguinui.com/components/carousel */
+          const ImageBlock = isCarousel ? (
+            <a class="project__image-link">
+              <div
+                class="project__image-container fade-up project__carousel"
+                data-delay={delay}
+                x-data={`{
+                  slides: ${JSON.stringify(
+                    images.map((src, index) => ({
+                      imgSrc: src,
+                      imgAlt: `${data.title} cover ${index + 1}`,
+                    }))
+                  )},
+                  currentSlideIndex: 1,
+                  hasStartedAutoplay: false,
+                  frameAspectRatio: 16 / 9,
+                  startAutoplayWhenVisible() {
+                    const observer = new IntersectionObserver((entries) => {
+                      const entry = entries[0];
+                      if (!entry.isIntersecting || this.hasStartedAutoplay) return;
 
-          const ImageBlock = isImage(data.highlight) ? (
+                      this.hasStartedAutoplay = true;
+                      this.autoplay();
+                      observer.disconnect();
+                    }, {
+                      threshold: 0.4
+                    });
+
+                    observer.observe(this.$el);
+                  },
+                  previous() {
+                    if (this.currentSlideIndex > 1) {
+                      this.currentSlideIndex = this.currentSlideIndex - 1
+                    } else {
+                      this.currentSlideIndex = this.slides.length
+                    }
+                  },
+                  next() {
+                    if (this.currentSlideIndex < this.slides.length) {
+                      this.currentSlideIndex = this.currentSlideIndex + 1
+                    } else {
+                      this.currentSlideIndex = 1
+                    }
+                  },
+                  autoplayIntervalTime: 4000,
+                  isPaused: false,
+                  autoplayInterval: null,
+                  autoplay() {
+                    this.autoplayInterval = setInterval(() => {
+                      if (!this.isPaused) {
+                        this.next()
+                      }
+                    }, this.autoplayIntervalTime)
+                  },
+                  setAutoplayInterval(newIntervalTime) {
+                    clearInterval(this.autoplayInterval)
+                    this.autoplayIntervalTime = newIntervalTime
+                    this.autoplay()
+                  },
+                  async calculateAspectRatio() {
+                    const loadRatio = (src) =>
+                      new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = () => resolve(img.naturalWidth / img.naturalHeight);
+                        img.onerror = () => resolve(null);
+                        img.src = src;
+                      });
+
+                    const ratios = (await Promise.all(this.slides.map((slide) => loadRatio(slide.imgSrc))))
+                      .filter((v) => typeof v === "number" && isFinite(v))
+                      .sort((a, b) => a - b);
+
+                    if (!ratios.length) return;
+
+                    const mid = Math.floor(ratios.length / 2);
+                    let ratio =
+                      ratios.length % 2 === 0
+                        ? (ratios[mid - 1] + ratios[mid]) / 2
+                        : ratios[mid];
+
+                    ratio = Math.max(0.85, Math.min(ratio, 1.9));
+
+                    this.frameAspectRatio = ratio;
+                  },
+                  async initCarousel() {
+                    await this.calculateAspectRatio();
+                    this.startAutoplayWhenVisible();
+                  },
+                }`}
+                x-init="initCarousel()"
+              >
+                <button
+                  type="button"
+                  class="project__carousel-button project__carousel-button--prev"
+                  aria-label="previous slide"
+                  x-on:click="previous(); setAutoplayInterval(autoplayIntervalTime)"
+                >
+                  ‹
+                </button>
+
+                <button
+                  type="button"
+                  class="project__carousel-button project__carousel-button--next"
+                  aria-label="next slide"
+                  x-on:click="next(); setAutoplayInterval(autoplayIntervalTime)"
+                >
+                  ›
+                </button>
+
+                <div 
+                  class="project__carousel-slides"
+                  x-bind:style="`aspect-ratio: ${frameAspectRatio}`"
+                >
+                  <template x-for="(slide, index) in slides" :key="index">
+                    <div
+                      x-show="currentSlideIndex == index + 1"
+                      class="project__carousel-slide"
+                      x-transition.opacity.duration.300ms
+                    >
+                      <img
+                        class="project__carousel-image"
+                        x-bind:src="slide.imgSrc"
+                        x-bind:alt="slide.imgAlt"
+                        loading="lazy"
+                      />
+                    </div>
+                  </template>
+                </div>
+
+                <button
+                  type="button"
+                  class="project__carousel-autoplay"
+                  aria-label="pause carousel"
+                  x-on:click="isPaused = !isPaused"
+                  x-bind:aria-pressed="isPaused"
+                >
+                  <span x-show="isPaused">▶</span>
+                  <span x-show="!isPaused">❚❚</span>
+                </button>
+
+                <div class="project__carousel-indicators" role="group" aria-label="slides">
+                  <template x-for="(slide, index) in slides" :key="index">
+                    <button
+                      class="project__carousel-indicator"
+                      x-on:click="currentSlideIndex = index + 1; setAutoplayInterval(autoplayIntervalTime)"
+                      x-bind:class="{ 'is-active': currentSlideIndex === index + 1 }"
+                      x-bind:aria-label="'slide ' + (index + 1)"
+                    ></button>
+                  </template>
+                </div>
+              </div>
+            </a>
+          ) : isSingleImage ? (
             <a class="project__image-link">
               <div class="project__image-container fade-up" data-delay={delay}>
                 <img
-                  src={data.highlight}
+                  src={images[0]}
                   alt={`${data.title} cover`}
                   loading="lazy"
                 />
@@ -141,6 +297,112 @@ const isImage = (v: string) => typeof v === 'string' && /\.(png|jpe?g|gif|webp)$
       transform: scale(1.05);
       filter: brightness(1.05);
     }
+  }
+
+  /* ---------- carousel ---------- */
+  .project__carousel {
+    position: relative;
+  }
+
+  .project__carousel-slides {
+    position: relative;
+    width: 100%;
+  }
+
+  .project__carousel-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-800, #1f2937);
+  }
+
+  .project__carousel-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+  }
+
+  .project__carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: 9999px;
+    background: rgb(0 0 0 / 0.45);
+    color: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .project__carousel-button--prev {
+    left: 1rem;
+  }
+
+  .project__carousel-button--next {
+    right: 1rem;
+  }
+
+  .project__carousel-indicators {
+    position: absolute;
+    left: 50%;
+    bottom: 0.75rem;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 9999px;
+    background: rgb(0 0 0 / 0.35);
+  }
+
+  .project__carousel-indicator {
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 0;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.45);
+    cursor: pointer;
+  }
+
+  .project__carousel-indicator.is-active {
+    background: white;
+  }
+
+  @media (hover: hover) {
+    .project__carousel:hover .project__carousel-image {
+      transform: scale(1.05);
+      filter: brightness(1.05);
+    }
+  }
+
+  .project__carousel-autoplay {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    border-radius: 9999px;
+    background: rgb(0 0 0 / 0.45);
+    color: white;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    font-size: 1rem;
   }
 
   /* ---------- info ---------- */
