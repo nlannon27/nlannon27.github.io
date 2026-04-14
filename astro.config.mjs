@@ -7,7 +7,10 @@ import alpinejs from '@astrojs/alpinejs';
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [Icons(), alpinejs()],
+    integrations: [
+        Icons(), 
+        alpinejs({entrypoint: '/src/alpine_entrypoint.ts'}),
+    ],
     site: 'https://nathanlannon.work/',
     vite: {
         resolve: {
