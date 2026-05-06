@@ -17,7 +17,7 @@ import Experience from "../components/portfolio/Experience.astro";
 import Projects from "../components/portfolio/Projects.astro";
 
 // Content Fetching
-const projects: Project[] = await getCollection('projects');
+const projects: Project[] = await getCollection("projects");
 
 const educationEntries = await getCollection("education");
 const education: ImageTimelineItem[] = educationEntries
@@ -62,7 +62,11 @@ const skills: Skill[] = (await getCollection("skills"))
 <BaseLayout showTopButton={true}>
     <header id="hero" class="hero">
         <BackgroundCanvas variant="hero" />
-        <Hero name="Nathan" role="I'm a Software Developer" ctaHref="#projects" />
+        <Hero
+            name="Nathan"
+            role="I'm a Software Developer"
+            ctaHref="#projects"
+        />
     </header>
 
     <Nav />
@@ -78,5 +82,5 @@ const skills: Skill[] = (await getCollection("skills"))
 <style>
     .wrapper.stack {
         padding: 6rem 0;
-	}
+    }
 </style>

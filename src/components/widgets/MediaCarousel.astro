@@ -3,24 +3,28 @@ const { images = [], videos = [] } = Astro.props;
 const media = [...images, ...videos];
 ---
 
-<!-- Not currently used, planned use within individual project pages -->
-
-{media.length > 0 && (
-  <div class="carousel relative overflow-hidden">
-    <div class="track flex snap-x snap-mandatory overflow-x-auto scroll-smooth">
-      {media.map((src, i) => (
-        src.match(/\.(mp4|webm)$/i)
-          ? <video
-              src={src} controls
-              class="snap-center shrink-0 w-full max-w-lg aspect-video object-cover"
-              style={`--i:${i}`}
-            />
-          : <img
-              src={src} loading="lazy"
-              class="snap-center shrink-0 w-full max-w-lg aspect-video object-cover"
-              style={`--i:${i}`}
-            />
-      ))}
-    </div>
-  </div>
-)}
+<!-- Not currently used, planned use within individual project pages -->{
+    media.length > 0 && (
+        <div class="carousel relative overflow-hidden">
+            <div class="track flex snap-x snap-mandatory overflow-x-auto scroll-smooth">
+                {media.map((src, i) =>
+                    src.match(/\.(mp4|webm)$/i) ? (
+                        <video
+                            src={src}
+                            controls
+                            class="snap-center shrink-0 w-full max-w-lg aspect-video object-cover"
+                            style={`--i:${i}`}
+                        />
+                    ) : (
+                        <img
+                            src={src}
+                            loading="lazy"
+                            class="snap-center shrink-0 w-full max-w-lg aspect-video object-cover"
+                            style={`--i:${i}`}
+                        />
+                    ),
+                )}
+            </div>
+        </div>
+    )
+}
