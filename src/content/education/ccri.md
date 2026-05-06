@@ -6,6 +6,6 @@ period: Spring 2024
 image: /assets/schools/ccri.png
 description: |
   <ul>
-    <li>Dean's List 4x</li>
+    <li>Dean's List (4x)</li>
   </ul>
 ---

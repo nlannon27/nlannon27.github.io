@@ -6,8 +6,8 @@ period: Spring 2026
 image: /assets/schools/uri.png
 description: |
   <ul>
-    <li>GPA 3.9 / 4.0</li>
-    <li>Dean's List 2x</li>
-    <li>C++, Java, OOP, Data Science, Operating Systems, Linear Algebra, Combinatorics</li>
+    <li>Coursework: Operating Systems & Networks, Computer Organization, Data Structures, Algorithms, Linear Algebra, Combinatorics, Machine Learning Security, Calculus</li>
+    <li>GPA 3.6 / 4.0</li>
+    <li>Dean's List (2x)</li>
   </ul>
 ---
