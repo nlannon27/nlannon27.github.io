@@ -1,14 +1,29 @@
 ---
 import Headline from "../common/Headline.astro";
 import type { Skill } from "../../types";
+import Icon from "../common/Icon.astro";
+import { iconPaths } from "../common/IconPaths";
 
 export interface Props {
     description: string;
     skills: Skill[];
     id?: string;
+
+    showResume?: boolean; // Whether to show the resume CTA button (default: false)
+    resumeHref?: string; // Optional custom href for the resume CTA button
+    resumeLabel?: string; // Optional custom label for the resume CTA button
+    resumeIcon?: keyof typeof iconPaths; // Optional custom icon for the resume CTA button
 }
 
-const { description, skills, id } = Astro.props as Props;
+const { 
+    description, 
+    skills, 
+    id,
+    showResume = true,
+    resumeHref = "/assets/NathanLannon_Resume_2026-05-05.pdf",
+    resumeLabel = "Download Resume",
+    resumeIcon = "resume-download" 
+} = Astro.props as Props;
 
 /* build rows of 4/5/4 like before */
 function chunkFixed<T>(arr: T[], pattern = [4, 5, 4]): T[][] {
@@ -57,6 +72,14 @@ const ICON_H = "2.75rem";
                 ))
             }
         </div>
+
+        {
+            showResume && (
+                <a href={resumeHref} class="resume-cta fade-up" data-delay="600" download>
+                    <span set:html={resumeLabel} /> <Icon icon={resumeIcon} size="1.1em" />
+                </a>
+            )
+        }
     </div>
 </section>
 
@@ -219,5 +242,36 @@ const ICON_H = "2.75rem";
         .skills {
             display: none;
         }
+    }
+
+    .resume-cta {
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin-top: 1rem;
+        gap: 0.6rem;
+        padding: 0.9rem 1.75rem;
+        font-size: var(--text-lg);
+        border: 2px solid var(--accent-regular);
+        border-radius: 0.5rem;
+        color: var(--accent-regular);
+        transition:
+        background 0.25s,
+        color 0.25s,
+        box-shadow 0.25s;
+        opacity: 0;
+        transform: translateY(24px);
+        animation: fadeSlide 0.8s 0.45s forwards;
+        text-decoration: none;
+    }
+
+    .resume-cta span {
+        text-decoration: underline;
+    }
+
+    .resume-cta:hover,
+    .resume-cta:focus {
+        background: var(--accent-regular);
+        color: var(--accent-text-over);
+        box-shadow: 0 0 0 4px var(--accent-overlay);
     }
 </style>

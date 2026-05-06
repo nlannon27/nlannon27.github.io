@@ -25,7 +25,7 @@ export const collections = {
 			links: z.array(
 				z.object({
 					label: z.string(),
-					href: z.string().url(),
+					href: z.string(),
 					icon: z.string(),
 				})
 			),
