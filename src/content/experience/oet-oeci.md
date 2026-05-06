@@ -6,9 +6,10 @@ period: September 2023 - May 2024
 stack: [ "Python", "C++" ]
 description: |
   <ul>
-    <li>Contributed to the Realtime Underwater Modeling and Immersion (RUMI) project, focused on seafloor simulation using photogrammetry.</li>
-    <li>Work on this project was showcased at SIGGRAPH 2024 for bridging underutilized domains across ocean science and simulation.</li>
-    <li>Designed software systems robust enough to be deployed at sea, in classrooms, and for interactive museum-style demos.</li>
+    <li>Built a Python/C++ pipeline converting 12–48 hour ROV dive video and CTL navigation data into photogrammetry-ready inputs.</li>
+    <li>Automated RealityCapture parameter selection to reduce per-dive tuning in underwater photogrammetry workflows.</li>
+    <li>Produced 3D seafloor assets from deep-sea expedition data, feeding the RUMI simulator and web visualizations.</li>
+    <li>Project work showcased at SIGGRAPH 2024 for bridging ocean science and real-time simulation.</li>
   </ul>
 icon: tabler:submarine
 ---

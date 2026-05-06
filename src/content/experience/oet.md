@@ -6,8 +6,12 @@ period: September 2024 - May 2025
 stack: [ "C++", "Unreal Engine", "Python" ]
 description: |
   <ul>
-    <li>Led development of a real-time underwater modeling tool used in scientific outreach, classroom teaching, and simulation environments.</li>
-    <li>Mentored a team of undergraduate interns, supporting both their technical growth and contributions to platform features.</li>
+    <li>Architected an Unreal Engine 5 deep-sea simulator as the sole C++ engineer, integrating LiDAR, multibeam, photogrammetry, and dive telemetry into a unified real-time geospatial system.</li>
+    <li>Built a modular time-sync system for ROV video, vehicle position, and pilot paths across multi-hour dives.</li>
+    <li>Led globe-scale Cesium integration for underwater use cases, driving extensions through Cesium collaboration.</li>
+    <li>Deployed an Ubuntu server hosting a containerized Perforce stack, Jenkins, and Authentik over a dedicated subnet.</li>
+    <li>Mentored three undergraduate interns through code review and feature development.</li>
+    <li>Packaged simulator demos for URI Science Saturday and Mystic Seaport Museum public outreach events.</li>
   </ul>
 icon: tabler:ship
 ---
