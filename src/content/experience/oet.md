@@ -2,7 +2,7 @@
 order: 2
 title: Software Engineer Contractor
 subtitle: Ocean Exploration Trust - Narragansett, RI
-period: September 2024 - May 2025
+period: September 2024 - June 2026
 stack: [ "C++", "Unreal Engine", "Python" ]
 description: |
   <ul>

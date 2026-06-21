@@ -6,7 +6,7 @@ period: Spring 2026
 image: /assets/schools/uri.png
 description: |
   <ul>
-    <li>Coursework: Operating Systems & Networks, Computer Organization, Data Structures, Algorithms, Linear Algebra, Combinatorics, Machine Learning Security, Calculus</li>
+    <li>Coursework: Algorithms, Data Structures, Operating Systems & Networks, Computer Organization, Machine Learning Security, Linear Algebra, Combinatorics, Calculus I–III</li>
     <li>GPA 3.6 / 4.0</li>
     <li>Dean's List (2x)</li>
   </ul>
