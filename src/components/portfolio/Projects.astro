@@ -155,7 +155,7 @@ const isVideo = (v: string) => typeof v === 'string' && /\.(mp4|webm|mov)$/i.tes
           const InfoBlock = (
             <div class="project__info fade-up" data-delay={delay + 75}>
               <h3 class="project__title" set:html={data.title} />
-              <p class="project__description">{data.description}</p>
+              <p class="project__description" set:html={data.description}></p>
 
               {data.links?.map((l) => (
                 <a
@@ -388,6 +388,10 @@ const isVideo = (v: string) => typeof v === 'string' && /\.(mp4|webm|mov)$/i.tes
     margin: 0;
     line-height: 1.6;
     color: var(--gray-300, #d1d5db);
+  }
+  .project__description :global(strong) {
+    color: var(--gray-200, #f9fafb);
+    font-weight: 600;
   }
 
   /* ---------- links ---------- */

@@ -1,7 +1,7 @@
 ---
 order: 6
 title: Neural Network Number Guesser
-description: Neural Network custom written in Java. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the MNIST dataset for training and testing. Only has ~70% accuracy but it could be improved with more work.
+description: Neural Network custom written in <strong>Java</strong>. Uses the Java Spring library to render the GUI. All math and logic is handled by my own code. Used the <strong>MNIST dataset</strong> for training and testing. Only has ~70% accuracy but it could be improved with more work.
 highlight: 
   - /assets/projects/neuralnet.gif
 links:

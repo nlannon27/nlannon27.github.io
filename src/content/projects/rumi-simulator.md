@@ -1,7 +1,7 @@
 ---
 order: 1
 title: RUMI – Simulator
-description: An immersive simulator experience built in Unreal Engine 5 that aims to recreate real life dives taken place aboard expeditions on the E/V Nautilus.
+description: An immersive simulator experience built in <strong>Unreal Engine 5</strong> that aims to recreate real life dives taken place aboard expeditions on the E/V Nautilus.
 highlight: 
   - /assets/projects/rumi-simulator/rumi-simulator.png
   - /assets/projects/rumi-simulator/shipwreck-clipped.mp4

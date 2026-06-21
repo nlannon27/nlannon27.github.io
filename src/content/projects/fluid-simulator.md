@@ -1,7 +1,7 @@
 ---
 title: Fluid Simulator
 order: -1
-description: A browser-based sandbox that lets you paint color and force into an incompressible fluid in real time. Built with p5.js.   
+description: A browser-based sandbox that lets you paint color and force into an incompressible fluid in real time. Built with <strong>p5.js</strong>.
 highlight: 
   - fluid
 links:
