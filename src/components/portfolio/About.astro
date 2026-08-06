@@ -59,10 +59,6 @@ const ICON_H = "2.75rem";
                         {row.map((s, i) => (
                             <div
                                 class={`skills__item fade-up`}
-                                data-delay={(
-                                    200 +
-                                    (r * 4 + i) * 100
-                                ).toString()}
                             >
                                 <img src={s.img} alt={s.name} />
                                 <div class="skills__item-name">{s.name}</div>
